@@ -10,121 +10,151 @@
     <link rel="stylesheet" href="/leek_bbs/statics/bootstrap-3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="/leek_bbs/statics/css/main.css">
     <script src="/leek_bbs/statics/component/common_import.js"></script>
+    <!-- ✅ 新增：Element UI（只用于视觉，不接管业务） -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="/leek_bbs/statics/component/common_import.js"></script>
+
     <style>
-        /* --------------------- 新增：全局样式变量 --------------------- */
-        :root {
-            --primary-color: #409eff;       /* 淡蓝色主色调 */
-            --secondary-color: #64b5f6;    /* 浅蓝辅助色 */
-            --bg-light: #f0f8ff;           /* 背景浅色 */
-            --border-color: #e0f2f1;       /* 柔和边框色 */
-            --text-primary: #333;          /* 主文字色 */
-            --text-secondary: #6c757d;     /* 次文字色 */
+        /* ===================== 现代社区外壳（核心） ===================== */
+
+        body {
+            background: #f5f7fa;
         }
 
-        /* --------------------- 原有未改动样式 --------------------- */
-        #img-size img {
-            width: 45px;
-            height: 45px;
-        }
-        /* 为板块添加鼠标悬停效果（在原有基础上优化） */
-        .m-col-padding:hover {
-            /* 原有背景色改为变量并增加动效 */
-            background-color: var(--bg-light);
-            cursor: pointer;
-            transform: translateX(4px); /* 新增平移效果 */
-            transition: all 0.3s ease; /* 新增过渡动画 */
-        }
-        /* 为热帖排行、精华内容、最新发表、最新回复的标题添加鼠标悬停变色效果 */
-        .m-box li a:hover {
-            color: var(--secondary-color); /* 原#ff6f3d改为辅助色 */
+        #modern-index-shell {
+            min-height: 100vh;
+            padding: 24px 0 60px;
         }
 
-        /* --------------------- 新增：整体布局美化 --------------------- */
-        /* 导航栏背景 */
-        #hmc {
-            background: #f8f9fa;
-            border-bottom: 1px solid var(--border-color);
+        #modern-index-shell .container {
+            max-width: 1200px;
         }
 
-        /* 板块标题区域 */
-        .m-head {
-            background: var(--bg-light);
-            padding: 12px 16px;
-            border-bottom: 1px solid var(--border-color);
-            border-radius: 8px 8px 0 0;
-        }
-
-        /* --------------------- 新增：边框与阴影优化 --------------------- */
-        /* 所有带边框的板块 */
-        [style*="border: 1px solid #e5e5e5"] {
-            border-color: var(--border-color)!important;
-            border-radius: 12px;
-            box-shadow: 0 2px 4px rgba(224, 242, 241, 0.3); /* 轻量阴影 */
-        }
-
-        /* 列表项分隔线 */
-        .m-box li {
-            border-bottom: 1px dashed var(--border-color);
+        /* 所有主模块 → 卡片化 */
+        #modern-index-shell .row[style*="border"],
+        #modern-index-shell .m-mar-left {
+            background: #ffffff !important;
+            border: none !important;
+            border-radius: 16px;
+            box-shadow: 0 12px 32px rgba(0,0,0,.08);
+            margin-bottom: 24px;
             padding: 8px 0;
         }
 
-        /* --------------------- 新增：文字与链接样式 --------------------- */
-        a {
-            color: var(--primary-color);
-            transition: color 0.3s ease;
+        /* 模块标题 */
+        .m-head {
+            padding: 20px 24px 14px;
+            border-bottom: 1px solid #ebeef5;
         }
 
-        /* 签到按钮优化 */
-        #signC {
-            color: var(--primary-color)!important;
-            font-weight: 500;
-        }
-
-        /* --------------------- 新增：元素细节美化 --------------------- */
-        /* 头像优化 */
-        .img-circle {
-            border: 2px solid var(--border-color);
-            box-shadow: 0 0 8px rgba(64, 158, 255, 0.15);
-        }
-
-        /* 数据统计模块 */
-        .m-count h5 {
-            color: var(--text-secondary);
-            font-size: 14px;
-            font-weight: 400;
-        }
-        .m-count span {
-            color: var(--primary-color);
-            font-size: 20px;
+        .m-head h5 {
+            font-size: 18px;
             font-weight: 600;
+            margin: 0;
+            color: #303133;
         }
 
-        /* 选项卡激活状态指示 */
-        [class*="isActive"] h4 {
-            color: var(--primary-color);
+        /* 板块卡片 */
+        .m-col-padding {
+            padding: 18px;
+            border-radius: 12px;
+            transition: all .3s ease;
+        }
+
+        .m-col-padding:hover {
+            background: #f0f5ff;
+            transform: translateY(-4px);
+        }
+
+        .m-col-padding a {
+            font-size: 15px;
+            font-weight: 600;
+            color: #303133;
+        }
+
+        .m-col-padding span {
+            color: #909399;
+        }
+
+        /* 签到模块 */
+        .m-sign {
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 12px 32px rgba(0,0,0,.08);
+        }
+
+        .m-sign .col-sm-6:first-child {
+            background: linear-gradient(135deg, #409eff, #66b1ff);
+        }
+
+        #signC a {
+            color: #fff !important;
+            font-weight: 700;
+        }
+
+        /* 数据模块 */
+        .m-count span {
+            font-size: 28px;
+            font-weight: 700;
+            color: #409eff;
+        }
+
+        .m-count h5 {
+            color: #909399;
+            font-size: 13px;
+        }
+
+        /* Tabs */
+        .m-mar-left h4 {
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .m-border-top h4 {
+            color: #409eff;
             position: relative;
         }
-        [class*="isActive"] h4::after {
+
+        .m-border-top h4::after {
             content: "";
             position: absolute;
+            bottom: -6px;
             left: 50%;
-            bottom: -4px;
-            width: 40px;
-            height: 2px;
-            background: var(--primary-color);
+            width: 30px;
+            height: 3px;
+            background: #409eff;
             transform: translateX(-50%);
         }
 
-        /* 在线会员头像尺寸微调 */
+        /* 列表 */
+        .m-box li {
+            padding: 10px 0;
+            border-bottom: 1px solid #ebeef5;
+        }
+
+        /* 在线用户 */
         #img-size img {
-            width: 50px;
-            height: 50px; /* 原45px改为50px更协调 */
-            object-fit: cover;
+            width: 54px;
+            height: 54px;
+        }
+
+        .img-circle {
+            border: 3px solid #fff;
+            box-shadow: 0 6px 18px rgba(0,0,0,.1);
+        }
+
+        footer {
+            margin-top: 50px;
+            padding: 30px 0;
+            text-align: center;
+            color: #909399;
         }
     </style>
 </head>
 
 <body>
+<div id="modern-index-shell">
 <div class="container-fluid">
     <!-- 导航开始 -->
     <div id="hmc">
@@ -328,11 +358,14 @@
             </div>
         </div>
     </div><!-- /中间主体部分 -->
+</div>
     <!-- 页脚部分 -->
     <footer>
         <div class="row">
-            <p>
-                <span>© 底部总得写点儿什么</span>
+            <p style="text-align: center; color: #666; font-size: 14px; margin: 20px 0; line-height: 1.8;">
+                <span>© 2026 就业交流论坛 版权所有</span>
+                <br>
+                <span>邮箱：hanser12581@gmail.com | 友链：www.bronia.xyz</span>
             </p>
         </div>
     </footer>
