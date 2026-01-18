@@ -1,0 +1,9 @@
+spring:
+  devtools:
+    restart:
+      enabled: true  # 启用热部署
+      poll-interval: 1000  # 设置轮询间隔
+      quiet-period: 400  # 设置触发重启的静默期
+      additional-paths: resources/**,static/**,templates/**  # 设置热部署监控路径
+    livereload:
+      enabled: true  # 启用 Livereload 功能
