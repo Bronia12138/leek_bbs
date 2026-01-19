@@ -1,0 +1,567 @@
+/* ============================================================
+   Modern UI Core - 现代社区视觉覆盖层
+   遵循约束：层级最高，不污染旧样式，服务于全站复用
+   ============================================================ */
+
+:root {
+    --primary-color: #007bff;          /* 现代品牌蓝 */
+    --bg-global: #f4f7f9;              /* 浅灰色全局背景 */
+    --bg-card: #ffffff;                /* 纯白卡片背景 */
+    --text-main: #2d3748;              /* 深灰色文字 */
+    --text-muted: #718096;             /* 弱化文字 */
+    --border-color: #e2e8f0;           /* 极淡边框线 */
+    --radius-lg: 12px;                 /* 大圆角 */
+    --radius-md: 8px;                  /* 中圆角 */
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+    --nav-height: 64px;
+}
+
+/* 1. 全局容器与背景约束 */
+body {
+    background-color: var(--bg-global) !important;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+}
+
+#modern-index-shell {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 2. 导航栏重构 (Modern Header) */
+.modern-header {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px); /* 毛玻璃效果 */
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    height: var(--nav-height);
+}
+
+.modern-nav {
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 100%;
+    padding: 0 20px;
+}
+
+.nav-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+}
+
+/* Logo */
+.modern-logo img {
+    height: 32px;
+    width: auto;
+    transition: transform 0.2s;
+}
+
+.modern-logo:hover img {
+    transform: scale(1.05);
+}
+
+/* 导航链接 */
+.nav-center {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    flex: 1;
+    justify-content: center;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 24px;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links a {
+    color: var(--text-muted);
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.2s;
+    font-size: 15px;
+}
+
+.nav-links li.active a,
+.nav-links a:hover {
+    color: var(--primary-color);
+}
+
+/* 现代胶囊搜索框 */
+.modern-search-wrapper {
+    position: relative;
+    background: #edf2f7;
+    border-radius: 20px;
+    padding: 6px 15px;
+    display: flex;
+    align-items: center;
+    width: 240px;
+    transition: all 0.2s;
+}
+
+.modern-search-wrapper:focus-within {
+    background: #fff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.2);
+    width: 280px;
+}
+
+.modern-search-input {
+    background: transparent;
+    border: none;
+    outline: none;
+    margin-left: 8px;
+    font-size: 13px;
+    width: 100%;
+}
+
+/* 3. 用户操作区 (Right) */
+.nav-right {
+    display: flex;
+    align-items: center;
+}
+
+.auth-buttons {
+    display: flex;
+    gap: 12px;
+}
+
+.btn-primary-modern {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: var(--radius-md);
+    font-weight: 500;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.btn-text {
+    background: transparent;
+    color: var(--text-muted);
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+/* 消息与头像 */
+.action-items {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.msg-icon-wrapper {
+    color: var(--text-muted);
+    font-size: 18px;
+    position: relative;
+}
+
+.badge-dot {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    width: 8px;
+    height: 8px;
+    background: #ff4d4f;
+    border-radius: 50%;
+    border: 2px solid #fff;
+}
+
+.user-avatar-trigger {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.nav-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid var(--border-color);
+}
+
+/* 4. 现代下拉卡片 (Dropdown Card) - 关键修复部分 */
+.user-actions {
+    position: relative;
+    height: 64px; /* 与导航栏等高 */
+    display: flex;
+    align-items: center;
+}
+
+.modern-dropdown-card {
+    position: absolute;
+    top: calc(100% + 5px); /* 稍微下移，避免紧贴 */
+    right: 0;
+    width: 260px;
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-color);
+    padding: 16px;
+    animation: fadeIn 0.2s ease-out;
+    z-index: 1001;
+}
+
+/* 创建连接区域 */
+.modern-dropdown-card::before {
+    content: "";
+    position: absolute;
+    top: -20px; /* 向上延伸20px */
+    left: 0;
+    width: 100%;
+    height: 20px;
+    background: transparent;
+}
+
+.user-card-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 12px;
+}
+
+.large-avatar img {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.user-stats {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-item strong {
+    display: block;
+    font-size: 16px;
+    color: var(--text-main);
+}
+
+.stat-item span {
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+.user-card-body .menu-cell {
+    display: flex;
+    align-items: center;
+    padding: 10px 12px;
+    color: var(--text-main);
+    text-decoration: none;
+    border-radius: var(--radius-md);
+    transition: background 0.2s;
+}
+
+.user-card-body .menu-cell:hover {
+    background: #f7fafc;
+    color: var(--primary-color);
+}
+
+.user-card-body i {
+    margin-right: 12px;
+    width: 16px;
+    color: var(--text-muted);
+}
+
+/* 5. Layui 弹窗适配 (Modern Modal) */
+.modern-layer-card {
+    border-radius: var(--radius-lg) !important;
+    overflow: hidden !important;
+    box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1) !important;
+}
+
+.modern-modal-content {
+    padding: 24px;
+}
+
+.modal-subtitle {
+    color: var(--text-muted);
+    font-size: 14px;
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+.modern-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-main);
+    margin-bottom: 6px;
+}
+
+.modern-input {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    transition: border-color 0.2s;
+    font-size: 14px;
+}
+
+.modern-input:focus {
+    border-color: var(--primary-color);
+    outline: none;
+}
+
+.modern-btn-submit {
+    width: 100%;
+    background: var(--primary-color);
+    color: #fff;
+    border: none;
+    padding: 12px;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+/* 动画 */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 响应式适配 */
+@media (max-width: 768px) {
+    .nav-center, .nav-username { display: none; }
+    .modern-search-wrapper { width: 120px; }
+}
+
+/* 补充：弹窗表单精修布局 */
+.form-row-flex {
+    display: flex;
+    gap: 15px; /* 输入框之间的间距 */
+    margin-bottom: 0;
+}
+
+.flex-1 { flex: 1; }
+
+.captcha-group {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.captcha-input {
+    flex: 1;
+}
+
+.modern-captcha-img {
+    height: 42px;
+    width: 120px;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    border: 1px solid var(--border-color);
+    transition: opacity 0.2s;
+}
+
+.modern-captcha-img:hover {
+    opacity: 0.8;
+}
+
+.form-helper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 15px 0;
+}
+
+.modern-link-secondary {
+    font-size: 13px;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.modern-link-secondary:hover {
+    color: var(--primary-color);
+}
+
+.modern-error-tip {
+    color: #ff4d4f;
+    font-size: 12px;
+    text-align: center;
+    margin-top: 10px;
+    display: none;
+    background: #fff2f0;
+    padding: 8px;
+    border-radius: var(--radius-md);
+}
+
+.modal-footer-ops {
+    margin-top: 25px;
+    text-align: center;
+}
+/* ============================================================
+   Modern Auth Modal Styles (GitHub / Notion Style)
+   ============================================================ */
+
+/* 弹窗外壳去除原生边框 */
+.modern-layer-shell {
+    border-radius: 16px !important;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.15) !important;
+    border: none !important;
+    overflow: hidden;
+}
+
+.modern-auth-card {
+    padding: 40px 32px;
+    background: #fff;
+}
+
+.auth-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.auth-logo {
+    height: 40px;
+    margin-bottom: 16px;
+}
+
+.auth-header h2 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 8px;
+}
+
+.auth-header p {
+    color: #666;
+    font-size: 14px;
+}
+
+/* 现代输入框 */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.label-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.label-link {
+    font-size: 12px;
+    color: var(--primary-color);
+}
+
+.m-input {
+    width: 100%;
+    height: 42px;
+    padding: 0 12px;
+    border: 1px solid #d0d7de;
+    border-radius: 6px;
+    background-color: #f6f8fa;
+    transition: all 0.2s cubic-bezier(0.3, 0, 0.5, 1);
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.m-input:focus {
+    background-color: #fff;
+    border-color: #0969da;
+    box-shadow: 0 0 0 3px rgba(9, 105, 218, 0.3);
+    outline: none;
+}
+
+/* 验证码组 */
+.m-captcha-wrapper {
+    display: flex;
+    gap: 12px;
+}
+
+.captcha-input {
+    flex: 1;
+}
+
+#captchaPic {
+    height: 42px;
+    border-radius: 6px;
+    border: 1px solid #d0d7de;
+    cursor: pointer;
+}
+
+/* 现代按钮 */
+.m-btn-primary {
+    background-color: #2da44e; /* GitHub 风格绿色，或改用 var(--primary-color) */
+    color: #fff;
+    border: 1px solid rgba(27, 31, 36, 0.15);
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.m-btn-primary:hover {
+    background-color: #2c974b;
+}
+
+.m-btn-primary.full-width {
+    width: 100%;
+    margin-top: 10px;
+}
+
+/* 复选框样式修正 (适配 Layui) */
+.m-checkbox-wrapper .layui-form-checkbox[lay-skin=primary] {
+    padding-left: 22px;
+}
+
+/* 底部跳转 */
+.auth-footer {
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid #eee;
+    text-align: center;
+    font-size: 13px;
+    color: #666;
+}
+
+.auth-footer a {
+    color: #0969da;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.m-error-msg {
+    margin-top: 15px;
+    color: #cf222e;
+    font-size: 12px;
+    text-align: center;
+    min-height: 18px;
+}
