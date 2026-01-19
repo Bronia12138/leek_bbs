@@ -419,6 +419,12 @@
 <script src="/leek_bbs/statics/component/wangEditor.min.js"></script>
 <script src="/leek_bbs/statics/component/wangEditCommon.js"></script>
 <script>
+	// 在 model.html 的 script 部分，创建 Vue 实例之前添加
+	function getUrlParam(name) {
+		let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+		let r = window.location.search.substr(1).match(reg);
+		if (r != null) return decodeURI(r[2]); return null;
+	}
     initLayui();
 	setTimeout(function () {
         var app =new Vue({
@@ -451,6 +457,7 @@
                     }
                 }
             },
+
             methods:{
 				handleBrowseCount(postId) {
 					// 改用GET请求，参数通过params传递
@@ -527,8 +534,8 @@
 					  this.todayPostCount=response.data;
                   })
 				},
-                getPlatePostInfo(pl_type,selectType,selectTime){
-                    axios.post("/leek_bbs/bbs/plate/getPlatePostInfo",{
+				getPlatePostInfo(pl_type,selectType,selectTime){
+					axios.post("/leek_bbs/bbs/plate/getPlatePostInfo",{
                         //时间查看方式:时间
                         selectTime:selectTime,
                         //类别查看方式
@@ -539,7 +546,7 @@
                         pageSize:this.pageSize,
                         // 显示第几页
                         currentPage:this.currentPage,
-                    }).then((response)=> {
+					}).then((response)=> {
                         //判断是否有置顶的主题数据,有则将数据赋予isTopInfo
                         if(response.data.list2!=null){
                             this.isTopInfo=response.data.list2.postList;
@@ -564,6 +571,14 @@
 							}
 							var plateRank = getUrlParam('pl_type'); //版块id
 							this.plateRanking =this.plateRanking.indexOf(parseInt(plateRank))+1;
+						}
+						// 确保图片路径正确
+						if(response.data.plateInfo && response.data.plateInfo.plate_photo) {
+							this.platePostInfo = response.data.plateInfo;
+							// 确保图片路径是完整路径
+							if(this.platePostInfo.plate_photo && !this.platePostInfo.plate_photo.startsWith('/')) {
+								this.platePostInfo.plate_photo = this.platePostInfo.plate_photo;
+							}
 						}
 
                     });

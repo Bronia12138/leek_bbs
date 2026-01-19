@@ -13,9 +13,9 @@ var tarUser = null;
 Vue.component('head_menu_comp', {
     props: ['is_login'],
     template: `
-    <header class="modern-header">
-        <nav class="modern-nav">
-            <div class="nav-container">
+<header class="modern-header">
+    <nav class="modern-nav">
+        <div class="nav-container">
                 <div class="nav-left">
                     <a class="modern-logo" href="/leek_bbs/skipPage/index">
                         <img src="/leek_bbs/statics/images/logo.png" alt="Leek BBS">
@@ -41,9 +41,11 @@ Vue.component('head_menu_comp', {
                         <button class="btn-text" @click="loginBtn()">登录</button>
                         <button class="btn-primary-modern" @click="registerBtn()">立即注册</button>
                     </div>
-
-                    <div class="user-actions" v-show="isUserShow" :class="{open:isOpenActive}" @mouseenter="isOpenActive=true" @mouseleave="isOpenActive=false">
-                        <div class="action-items">
+                    
+            <div class="user-actions" v-show="isUserShow" 
+                 @mouseenter="handleDropdownEnter"
+                 @mouseleave="handleDropdownLeave">
+                <div class="action-items">
                             <a href="/leek_bbs/skipPage/msg-notification" class="msg-icon-wrapper">
                                 <i class="glyphicon glyphicon-envelope"></i>
                                 <span class="badge-dot" style="display:none;"></span>
@@ -52,8 +54,11 @@ Vue.component('head_menu_comp', {
                                 </div>
                         </div>
 
-                        <div class="modern-dropdown-card" v-show="isOpenActive" data-stopPropagation="true">
-                            <div class="user-card-header">
+                <div class="modern-dropdown-card" v-show="isOpenActive" 
+                     @mouseenter="handleDropdownContentEnter"
+                     @mouseleave="handleDropdownContentLeave"
+                     data-stopPropagation="true">
+                          <div class="user-card-header">
                                 <div id="c-photo" class="large-avatar"></div>
                                 <div class="user-info-brief">
                                     <div id="u-ig" class="user-stats"></div>
@@ -84,10 +89,34 @@ Vue.component('head_menu_comp', {
             isLoginShow: this.is_login,
             isUserShow: false,
             dropdownTimer: null, // 新增：用于控制延迟关闭的计时器
-            menuList: { forum: "index", read: "read", dynamic: "dynamic", ranking: "rank", aboutUs: "about" }
+            menuList: {forum: "index", read: "read", dynamic: "dynamic", ranking: "rank", aboutUs: "about"}
         }
     },
     methods: {
+        // 修改下拉菜单的鼠标事件处理
+        handleDropdownEnter() {
+            if (this.dropdownTimer) {
+                clearTimeout(this.dropdownTimer);
+            }
+            this.isOpenActive = true;
+        },
+        handleDropdownLeave() {
+            this.dropdownTimer = setTimeout(() => {
+                this.isOpenActive = false;
+            }, 300); // 300ms延迟关闭
+        },
+
+        // 下拉菜单内容区域的鼠标事件
+        handleDropdownContentEnter() {
+            if (this.dropdownTimer) {
+                clearTimeout(this.dropdownTimer);
+            }
+        },
+        handleDropdownContentLeave() {
+            this.dropdownTimer = setTimeout(() => {
+                this.isOpenActive = false;
+            }, 300);
+        },
         // 新增：进入时清除计时器，保持显示
         handleMouseEnter() {
             if (this.dropdownTimer) {
@@ -272,7 +301,9 @@ layui.define(['layer', 'form', 'util'], function (exports) {
                 </form>
             </div>`,
             success: function (layero) {
-                setTimeout(() => { $("#captchaPic").click(); }, 200);
+                setTimeout(() => {
+                    $("#captchaPic").click();
+                }, 200);
                 form.val('loginForm', {
                     "username": A.rc("username"),
                     "password": A.rc("password"),
@@ -299,17 +330,17 @@ layui.define(['layer', 'form', 'util'], function (exports) {
     form.on('submit(registerBtn)', function (data) {
         var user = data.field;
         if (data.field.another_name.length > 13) {
-            layer.msg('昵称太长了', { icon: 5, anim: 6 });
+            layer.msg('昵称太长了', {icon: 5, anim: 6});
             return false;
         }
         if (data.field.password != data.field.pwd) {
-            layer.msg('两次密码不一致', { icon: 5, anim: 6 });
+            layer.msg('两次密码不一致', {icon: 5, anim: 6});
             return false;
         }
 
         axios.post("/leek_bbs/bbs/user/register", user).then(result => {
             if (result.data.code == "500020") {
-                layer.msg('注册成功', { icon: 1 }, function () {
+                layer.msg('注册成功', {icon: 1}, function () {
                     layer.closeAll();
                     layui.login();
                 });
@@ -418,7 +449,9 @@ function websocketLinkStart(userInfo) {
         }
     };
 
-    ws.onclose = function() { websocketLinkStart(userInfo); };
+    ws.onclose = function () {
+        websocketLinkStart(userInfo);
+    };
 }
 
 // 通用工具函数保持不变
