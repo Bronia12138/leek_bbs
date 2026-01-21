@@ -565,3 +565,791 @@ body {
     text-align: center;
     min-height: 18px;
 }
+
+
+
+/*model.html样式*/
+/* 变量定义 */
+:root {
+    --m-bg-body: #f5f7f9;
+    --m-bg-card: #ffffff;
+    --m-primary: #ff6f3d;
+    --m-primary-hover: #fa5a20;
+    --m-text-main: #2c3e50;
+    --m-text-subs: #7f8c8d;
+    --m-border-color: #ebf0f2;
+    --m-radius: 12px;
+    --m-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.05);
+}
+
+/* 基础重置 */
+body {
+    background-color: var(--m-bg-body) !important;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: var(--m-text-main);
+}
+
+#modern-index-shell {
+    min-height: 100vh;
+}
+
+/* 通用卡片样式 */
+.m-card {
+    background: var(--m-bg-card);
+    border-radius: var(--m-radius);
+    border: 1px solid var(--m-border-color);
+    box-shadow: var(--m-shadow);
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+/* 面包屑 */
+.m-breadcrumb {
+    padding: 20px 0;
+    font-size: 13px;
+    color: var(--m-text-subs);
+}
+.m-breadcrumb a { color: var(--m-text-subs); text-decoration: none; }
+.m-breadcrumb a:hover { color: var(--m-primary); }
+.m-breadcrumb .m-sep { margin: 0 8px; color: #ccc; }
+.m-breadcrumb .m-current { color: var(--m-text-main); font-weight: 500; }
+
+/* 版块头部 */
+.m-plate-header {
+    display: flex;
+    align-items: center;
+    padding: 25px;
+}
+.m-plate-cover img {
+    width: 80px;
+    height: 80px;
+    border-radius: 16px;
+    object-fit: cover;
+    margin-right: 20px;
+}
+.m-plate-info { flex: 1; }
+.m-plate-title h1 { margin: 0 0 8px 0; font-size: 24px; font-weight: 700; color: #1a1a1a; }
+.m-plate-stats { font-size: 13px; color: var(--m-text-subs); display: flex; align-items: center; }
+.m-plate-stats b { color: var(--m-text-main); margin-left: 4px; }
+.m-plate-stats .m-dot { width: 3px; height: 3px; background: #ccc; border-radius: 50%; margin: 0 10px; }
+.m-plate-desc { margin-top: 10px; font-size: 14px; color: var(--m-text-subs); }
+.m-btn-favorite {
+    background: #fff;
+    border: 1px solid var(--m-primary);
+    color: var(--m-primary);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    transition: all 0.3s;
+}
+.m-btn-favorite:hover { background: var(--m-primary); color: #fff; }
+
+/* 筛选工具栏 */
+.m-filter-bar {
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.m-select {
+    border: 1px solid var(--m-border-color);
+    padding: 5px 10px;
+    border-radius: 6px;
+    outline: none;
+    margin-right: 10px;
+}
+.m-filter-right a {
+    color: var(--m-text-subs);
+    margin-left: 15px;
+    text-decoration: none;
+    font-size: 14px;
+}
+.m-filter-right a.active { color: var(--m-primary); font-weight: bold; }
+
+/* 帖子列表项目 */
+.m-post-item {
+    display: flex;
+    padding: 18px 20px;
+    border-bottom: 1px solid var(--m-border-color);
+    transition: background 0.2s;
+}
+.m-post-item:hover { background-color: #fafafa; }
+.m-item-avatar img { width: 44px; height: 44px; border-radius: 50%; margin-right: 15px; }
+.m-item-main { flex: 1; }
+.m-item-title {
+    display: block;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--m-text-main);
+    margin-bottom: 6px;
+    text-decoration: none;
+}
+.m-item-title:hover { color: var(--m-primary); }
+.m-tag-top {
+    background: #fff0eb;
+    color: var(--m-primary);
+    font-size: 12px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-right: 8px;
+}
+.m-item-meta { font-size: 13px; color: var(--m-text-subs); }
+.m-author { color: var(--m-text-main); font-weight: 500; margin-right: 10px; }
+.m-item-stats { display: flex; align-items: center; color: var(--m-text-subs); font-size: 13px; }
+.m-item-stats span { margin-left: 15px; }
+.m-item-stats i { margin-right: 4px; }
+
+/* 侧边栏卡片 */
+.m-card-header {
+    padding: 15px 20px;
+    font-weight: 600;
+    border-bottom: 1px solid var(--m-border-color);
+    font-size: 15px;
+}
+.m-notice-content { padding: 15px 20px; }
+.m-notice-title { font-size: 15px; color: #e74c3c; margin-bottom: 10px; }
+.m-notice-body { font-size: 14px; line-height: 1.6; }
+
+.m-hot-item { display: flex; align-items: center; padding: 12px 20px; }
+.m-hot-rank { width: 20px; font-weight: bold; color: #999; margin-right: 12px; font-style: italic; }
+.m-hot-rank.rank-1 { color: #ff4d4f; }
+.rank-2 { color: #fa8c16; }
+.rank-3 { color: #fadb14; }
+.m-hot-title { flex: 1; font-size: 14px; color: var(--m-text-main); text-decoration: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* 快速发帖 */
+.m-quick-post { margin-top: 30px; }
+.m-input-title {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid var(--m-border-color);
+    border-radius: 8px;
+    margin: 15px;
+    outline-color: var(--m-primary);
+}
+.m-editor-container { position: relative; margin: 0 15px 15px; }
+.m-editor-mask {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(255,255,255,0.9);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+.m-btn-submit {
+    background: var(--m-primary);
+    color: #fff;
+    border: none;
+    padding: 10px 30px;
+    border-radius: 8px;
+    margin: 0 15px 15px;
+    float: right;
+}
+.m-btn-primary { background: var(--m-primary); color: #fff; padding: 8px 20px; border-radius: 6px; text-decoration: none; }
+
+
+/* --- 1. 修复分页图标 Bug (解决矩形对角线问题) --- */
+/* 原因是 ElementUI 字体路径在旧项目中经常失效，我们强制用 Unicode 字符覆盖 */
+.el-pagination .btn-prev i::before {
+    content: "❮" !important;
+    font-family: Arial, sans-serif !important;
+}
+.el-pagination .btn-next i::before {
+    content: "❯" !important;
+    font-family: Arial, sans-serif !important;
+}
+/* 解决图标被对角线穿过的情况：隐藏原图标字体 */
+.el-icon-arrow-left:before, .el-icon-arrow-right:before {
+    display: none !important;
+}
+
+/* --- 2. 现代感发帖 UI 重塑 --- */
+.m-quick-post-modern {
+    margin-top: 30px;
+}
+.m-card-header-sleek {
+    padding: 15px 25px;
+    border-bottom: 1px solid var(--m-border);
+    display: flex;
+    align-items: center;
+}
+.m-header-icon {
+    color: #ff6f3d;
+    margin-right: 10px;
+    font-size: 18px;
+}
+.m-header-text {
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--m-text);
+}
+.m-card-body-modern { padding: 20px 25px; }
+
+/* 标题输入框：去掉了厚重的边框，改为极简线条感 */
+.m-input-minimal {
+    width: 100%;
+    border: 1px solid #edf2f7;
+    background: #f8fafc;
+    border-radius: 10px;
+    padding: 12px 18px;
+    font-size: 16px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-bottom: 15px;
+}
+.m-input-minimal:focus {
+    outline: none;
+    background: #fff;
+    border-color: #ff6f3d;
+    box-shadow: 0 4px 12px rgba(255,111,61,0.1);
+}
+
+/* 发布按钮现代感动效 */
+.m-post-actions-modern {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+}
+.m-btn-submit-modern {
+    background: linear-gradient(135deg, #ff6f3d, #ff8e64);
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 8px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.m-btn-submit-modern:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255,111,61,0.3);
+}
+
+/* --- 3. 右侧日夜切换按钮 (FAB) --- */
+.m-theme-toggle-fab {
+    position: fixed;
+    right: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 2000;
+    transition: all 0.3s;
+    font-size: 20px;
+    color: #ff6f3d;
+}
+.m-theme-toggle-fab:hover {
+    transform: translateY(-50%) scale(1.1);
+}
+
+/* --- 4. 深色模式样式定义 --- */
+:root {
+    --m-bg: #f5f7f9;
+    --m-card: #ffffff;
+    --m-text: #2d3748;
+    --m-border: #edf2f7;
+}
+
+#modern-index-shell.dark-theme {
+    --m-bg: #1a202c;
+    --m-card: #2d3748;
+    --m-text: #edf2f7;
+    --m-border: #4a5568;
+    background-color: var(--m-bg) !important;
+}
+
+.dark-theme .m-card { background: var(--m-card) !important; color: var(--m-text); border-color: var(--m-border); }
+.dark-theme body { background-color: var(--m-bg) !important; }
+.dark-theme .m-theme-toggle-fab { background: #4a5568; color: #fbd38d; }
+.dark-theme .m-input-minimal { background: #1a202c; border-color: #4a5568; color: #fff; }
+
+
+
+/* =========================================================
+   Modern WangEditor UI Override
+   作用范围：#modern-index-shell
+   ========================================================= */
+
+/* ---------- 1. 工具栏整体（Card 化） ---------- */
+#modern-index-shell .w-e-toolbar {
+    background: #f8fafc !important;
+    border: 1px solid var(--m-border, #edf2f7) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    padding: 6px 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+/* ---------- 2. 单个工具按钮 ---------- */
+#modern-index-shell .w-e-menu {
+    background: transparent !important;
+    border-radius: 8px;
+    padding: 6px;
+    transition: background 0.2s ease, transform 0.15s ease;
+}
+
+/* 图标本身 */
+#modern-index-shell .w-e-menu i {
+    font-size: 16px;
+    color: #64748b;
+    transition: color 0.2s ease;
+}
+
+/* Hover 状态 */
+#modern-index-shell .w-e-menu:hover {
+    background: #e2e8f0;
+}
+#modern-index-shell .w-e-menu:hover i {
+    color: #ff6f3d;
+}
+
+/* Active / 选中态 */
+#modern-index-shell .w-e-menu.w-e-active {
+    background: rgba(255,111,61,0.15);
+}
+#modern-index-shell .w-e-menu.w-e-active i {
+    color: #ff6f3d;
+}
+
+/* ---------- 3. 编辑区域外壳 ---------- */
+#modern-index-shell .w-e-text-container {
+    border: 1px solid var(--m-border, #edf2f7) !important;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-top: 8px;
+}
+
+/* ---------- 4. 编辑内容区背景与字体 ---------- */
+#modern-index-shell .w-e-text {
+    padding: 16px 18px;
+    background: #ffffff;
+    font-size: 15px;
+    line-height: 1.75;
+    color: #2d3748;
+}
+
+/* ---------- 5. 内容排版（更像社区 / Markdown） ---------- */
+#modern-index-shell .w-e-text h1,
+#modern-index-shell .w-e-text h2,
+#modern-index-shell .w-e-text h3 {
+    font-weight: 600;
+    margin: 18px 0 10px;
+}
+
+#modern-index-shell .w-e-text p {
+    margin: 8px 0;
+}
+
+#modern-index-shell .w-e-text blockquote {
+    border-left: 4px solid #ff6f3d;
+    background: #fff7f3;
+    padding: 10px 14px;
+    margin: 12px 0;
+    color: #555;
+}
+
+#modern-index-shell .w-e-text code {
+    background: #f1f5f9;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+    font-size: 13px;
+}
+
+#modern-index-shell .w-e-text pre {
+    background: #0f172a;
+    color: #e5e7eb;
+    padding: 14px;
+    border-radius: 10px;
+    overflow-x: auto;
+    margin: 12px 0;
+}
+
+/* ---------- 6. 深色模式适配 ---------- */
+#modern-index-shell.dark-theme .w-e-toolbar {
+    background: #1f2937 !important;
+    border-color: #374151 !important;
+}
+
+#modern-index-shell.dark-theme .w-e-menu:hover {
+    background: #374151;
+}
+
+#modern-index-shell.dark-theme .w-e-menu i {
+    color: #cbd5f5;
+}
+
+#modern-index-shell.dark-theme .w-e-text-container {
+    border-color: #374151 !important;
+}
+
+#modern-index-shell.dark-theme .w-e-text {
+    background: #111827;
+    color: #e5e7eb;
+}
+
+#modern-index-shell.dark-theme blockquote {
+    background: #1f2937;
+    color: #d1d5db;
+}
+
+/*!* ============================================*/
+/*   优化分页按钮图标尺寸 - 精致现代风格*/
+/*   ============================================ *!*/
+
+/*!* 分页按钮容器 - 优化尺寸 *!*/
+/*#modern-index-shell .el-pagination .btn-prev,*/
+/*#modern-index-shell .el-pagination .btn-next {*/
+/*    background: #ffffff !important;*/
+/*    border: 1px solid #e2e8f0 !important;*/
+/*    border-radius: 6px !important;*/
+/*    width: 32px !important;*/
+/*    height: 32px !important;*/
+/*    display: flex !important;*/
+/*    align-items: center !important;*/
+/*    justify-content: center !important;*/
+/*    cursor: pointer !important;*/
+/*    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;*/
+/*    position: relative !important;*/
+/*    overflow: hidden !important;*/
+/*    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;*/
+/*    margin: 0 4px !important;*/
+/*}*/
+
+/*!* 按钮悬停效果 - 更精致 *!*/
+/*#modern-index-shell .el-pagination .btn-prev:hover:not(.disabled),*/
+/*#modern-index-shell .el-pagination .btn-next:hover:not(.disabled) {*/
+/*    background: #f8fafc !important;*/
+/*    border-color: #ff6f3d !important;*/
+/*    transform: translateY(-1px) !important;*/
+/*    box-shadow: 0 3px 8px rgba(255, 111, 61, 0.12) !important;*/
+/*}*/
+
+/*!* 按钮按下效果 *!*/
+/*#modern-index-shell .el-pagination .btn-prev:active:not(.disabled),*/
+/*#modern-index-shell .el-pagination .btn-next:active:not(.disabled) {*/
+/*    transform: translateY(0) !important;*/
+/*    box-shadow: 0 1px 3px rgba(255, 111, 61, 0.1) !important;*/
+/*}*/
+
+/*!* 禁用状态 *!*/
+/*#modern-index-shell .el-pagination .btn-prev.disabled,*/
+/*#modern-index-shell .el-pagination .btn-next.disabled {*/
+/*    background: #f1f5f9 !important;*/
+/*    border-color: #e2e8f0 !important;*/
+/*    cursor: not-allowed !important;*/
+/*    opacity: 0.5 !important;*/
+/*    box-shadow: none !important;*/
+/*}*/
+
+/*!* **关键修复：优化图标尺寸和设计** *!*/
+/*#modern-index-shell .el-pagination .btn-prev::before,*/
+/*#modern-index-shell .el-pagination .btn-next::before {*/
+/*    content: '' !important;*/
+/*    display: block !important;*/
+/*    width: 12px !important;  !* 从16px减小到12px *!*/
+/*    height: 12px !important; !* 从16px减小到12px *!*/
+/*    background-repeat: no-repeat !important;*/
+/*    background-position: center !important;*/
+/*    background-size: contain !important;*/
+/*    transition: all 0.2s ease !important;*/
+/*    opacity: 0.85 !important;*/
+/*}*/
+
+/*!* 上一页箭头 - 更细更精致的设计 *!*/
+/*#modern-index-shell .el-pagination .btn-prev::before {*/
+/*    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%234a5568' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 18l-6-6 6-6'/%3E%3C/svg%3E") !important;*/
+/*}*/
+
+/*!* 下一页箭头 - 更细更精致的设计 *!*/
+/*#modern-index-shell .el-pagination .btn-next::before {*/
+/*    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%234a5568' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 18l6-6-6-6'/%3E%3C/svg%3E") !important;*/
+/*}*/
+
+/*!* 悬停时图标颜色变化 - 更细微 *!*/
+/*#modern-index-shell .el-pagination .btn-prev:hover:not(.disabled)::before {*/
+/*    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23ff6f3d' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 18l-6-6 6-6'/%3E%3C/svg%3E") !important;*/
+/*    transform: translateX(-0.5px) !important;*/
+/*    opacity: 1 !important;*/
+/*}*/
+
+/*#modern-index-shell .el-pagination .btn-next:hover:not(.disabled)::before {*/
+/*    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23ff6f3d' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 18l6-6-6-6'/%3E%3C/svg%3E") !important;*/
+/*    transform: translateX(0.5px) !important;*/
+/*    opacity: 1 !important;*/
+/*}*/
+
+/*!* 禁用状态图标 *!*/
+/*#modern-index-shell .el-pagination .btn-prev.disabled::before,*/
+/*#modern-index-shell .el-pagination .btn-next.disabled::before {*/
+/*    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 18l-6-6 6-6'/%3E%3C/svg%3E") !important;*/
+/*    opacity: 0.4 !important;*/
+/*}*/
+
+/*#modern-index-shell .el-pagination .btn-next.disabled::before {*/
+/*    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 18l6-6-6-6'/%3E%3C/svg%3E") !important;*/
+/*}*/
+
+/*!* 隐藏原始图标（防止重复显示） *!*/
+/*#modern-index-shell .el-pagination .btn-prev .el-icon,*/
+/*#modern-index-shell .el-pagination .btn-next .el-icon,*/
+/*#modern-index-shell .el-pagination .btn-prev i,*/
+/*#modern-index-shell .el-pagination .btn-next i {*/
+/*    display: none !important;*/
+/*}*/
+
+/*!* 深色模式适配 *!*/
+/*#modern-index-shell.dark-theme .el-pagination .btn-prev,*/
+/*#modern-index-shell.dark-theme .el-pagination .btn-next {*/
+/*    background: #2d3748 !important;*/
+/*    border-color: #4a5568 !important;*/
+/*    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) !important;*/
+/*}*/
+
+/*#modern-index-shell.dark-theme .el-pagination .btn-prev:hover:not(.disabled),*/
+/*#modern-index-shell.dark-theme .el-pagination .btn-next:hover:not(.disabled) {*/
+/*    background: #374151 !important;*/
+/*    border-color: #ff8e64 !important;*/
+/*}*/
+
+/*#modern-index-shell.dark-theme .el-pagination .btn-prev::before {*/
+/*    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23a0aec0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 18l-6-6 6-6'/%3E%3C/svg%3E") !important;*/
+/*}*/
+
+/*#modern-index-shell.dark-theme .el-pagination .btn-next::before {*/
+/*    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23a0aec0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 18l6-6-6-6'/%3E%3C/svg%3E") !important;*/
+/*}*/
+
+/*#modern-index-shell.dark-theme .el-pagination .btn-prev:hover:not(.disabled)::before {*/
+/*    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23ff8e64' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 18l-6-6 6-6'/%3E%3C/svg%3E") !important;*/
+/*}*/
+
+/*#modern-index-shell.dark-theme .el-pagination .btn-next:hover:not(.disabled)::before {*/
+/*    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23ff8e64' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 18l6-6-6-6'/%3E%3C/svg%3E") !important;*/
+/*}*/
+
+/*!* 分页页码按钮样式协调 *!*/
+/*#modern-index-shell .el-pagination .el-pager li {*/
+/*    min-width: 32px !important;*/
+/*    height: 32px !important;*/
+/*    line-height: 30px !important;*/
+/*    margin: 0 4px !important;*/
+/*    font-size: 13px !important;*/
+/*}*/
+
+/*!* 移动端适配 *!*/
+/*@media (max-width: 768px) {*/
+/*    #modern-index-shell .el-pagination .btn-prev,*/
+/*    #modern-index-shell .el-pagination .btn-next {*/
+/*        width: 28px !important;*/
+/*        height: 28px !important;*/
+/*    }*/
+
+/*    #modern-index-shell .el-pagination .btn-prev::before,*/
+/*    #modern-index-shell .el-pagination .btn-next::before {*/
+/*        width: 10px !important;*/
+/*        height: 10px !important;*/
+/*    }*/
+
+/*    #modern-index-shell .el-pagination .el-pager li {*/
+/*        min-width: 28px !important;*/
+/*        height: 28px !important;*/
+/*        line-height: 26px !important;*/
+/*        font-size: 12px !important;*/
+/*    }*/
+/*}*/
+/* ============================================
+   修复分页按钮图标 - 修正水平布局方案
+   ============================================ */
+
+/* 分页按钮基础样式 */
+#modern-index-shell .el-pagination .btn-prev,
+#modern-index-shell .el-pagination .btn-next {
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 8px !important;
+    width: 36px !important;
+    height: 36px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    margin: 0 4px !important;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05) !important;
+    position: relative !important;
+    /* 确保水平布局 */
+    flex-direction: row !important;
+}
+
+/* 按钮悬停效果 */
+#modern-index-shell .el-pagination .btn-prev:hover:not(.disabled),
+#modern-index-shell .el-pagination .btn-next:hover:not(.disabled) {
+    background: #f8fafc !important;
+    border-color: #ff6f3d !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 3px 10px rgba(255, 111, 61, 0.15) !important;
+}
+
+/* 禁用状态 */
+#modern-index-shell .el-pagination .btn-prev.disabled,
+#modern-index-shell .el-pagination .btn-next.disabled {
+    background: #f1f5f9 !important;
+    border-color: #e2e8f0 !important;
+    cursor: not-allowed !important;
+    opacity: 0.5 !important;
+    box-shadow: none !important;
+}
+
+/* **关键修复：使用Unicode字符作为箭头图标** */
+#modern-index-shell .el-pagination .btn-prev .el-icon-arrow-left,
+#modern-index-shell .el-pagination .btn-next .el-icon-arrow-right {
+    font-size: 0 !important; /* 隐藏原图标 */
+}
+
+/* 用伪元素显示左右箭头 */
+#modern-index-shell .el-pagination .btn-prev::before {
+    content: "←" !important; /* 左箭头 */
+    font-size: 14px !important;
+    color: #4a5568 !important;
+    font-weight: bold !important;
+    transition: color 0.2s ease !important;
+}
+
+#modern-index-shell .el-pagination .btn-next::before {
+    content: "→" !important; /* 右箭头 */
+    font-size: 14px !important;
+    color: #4a5568 !important;
+    font-weight: bold !important;
+    transition: color 0.2s ease !important;
+}
+
+/* 悬停时箭头颜色变化 */
+#modern-index-shell .el-pagination .btn-prev:hover:not(.disabled)::before,
+#modern-index-shell .el-pagination .btn-next:hover:not(.disabled)::before {
+    color: #ff6f3d !important;
+}
+
+/* 禁用状态箭头 */
+#modern-index-shell .el-pagination .btn-prev.disabled::before,
+#modern-index-shell .el-pagination .btn-next.disabled::before {
+    color: #94a3b8 !important;
+    opacity: 0.4 !important;
+}
+
+/* 确保分页容器水平排列 */
+#modern-index-shell .el-pagination {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 4px !important;
+}
+
+/* 分页页码按钮样式协调 */
+#modern-index-shell .el-pagination .el-pager {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 4px !important;
+    margin: 0 8px !important;
+}
+
+#modern-index-shell .el-pagination .el-pager li {
+    min-width: 36px !important;
+    height: 36px !important;
+    line-height: 34px !important;
+    font-size: 14px !important;
+    border-radius: 8px !important;
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+#modern-index-shell .el-pagination .el-pager li:hover {
+    color: #ff6f3d !important;
+    border-color: #ff6f3d !important;
+}
+
+#modern-index-shell .el-pagination .el-pager li.active {
+    background: #ff6f3d !important;
+    color: white !important;
+    border-color: #ff6f3d !important;
+}
+
+/* 深色模式适配 */
+#modern-index-shell.dark-theme .el-pagination .btn-prev,
+#modern-index-shell.dark-theme .el-pagination .btn-next {
+    background: #2d3748 !important;
+    border-color: #4a5568 !important;
+}
+
+#modern-index-shell.dark-theme .el-pagination .btn-prev:hover:not(.disabled),
+#modern-index-shell.dark-theme .el-pagination .btn-next:hover:not(.disabled) {
+    background: #374151 !important;
+    border-color: #ff8e64 !important;
+}
+
+#modern-index-shell.dark-theme .el-pagination .btn-prev::before,
+#modern-index-shell.dark-theme .el-pagination .btn-next::before {
+    color: #a0aec0 !important;
+}
+
+#modern-index-shell.dark-theme .el-pagination .btn-prev:hover:not(.disabled)::before,
+#modern-index-shell.dark-theme .el-pagination .btn-next:hover:not(.disabled)::before {
+    color: #ff8e64 !important;
+}
+
+#modern-index-shell.dark-theme .el-pagination .el-pager li {
+    background: #2d3748 !important;
+    border-color: #4a5568 !important;
+    color: #e2e8f0 !important;
+}
+
+#modern-index-shell.dark-theme .el-pagination .el-pager li:hover {
+    background: #374151 !important;
+    border-color: #ff8e64 !important;
+    color: #ff8e64 !important;
+}
+
+#modern-index-shell.dark-theme .el-pagination .el-pager li.active {
+    background: #ff6f3d !important;
+    color: white !important;
+    border-color: #ff6f3d !important;
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+    #modern-index-shell .el-pagination .btn-prev,
+    #modern-index-shell .el-pagination .btn-next {
+        width: 32px !important;
+        height: 32px !important;
+    }
+
+    #modern-index-shell .el-pagination .btn-prev::before,
+    #modern-index-shell .el-pagination .btn-next::before {
+        font-size: 12px !important;
+    }
+
+    #modern-index-shell .el-pagination .el-pager li {
+        min-width: 32px !important;
+        height: 32px !important;
+        line-height: 30px !important;
+        font-size: 13px !important;
+    }
+}

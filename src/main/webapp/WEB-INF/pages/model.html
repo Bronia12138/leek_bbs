@@ -2,406 +2,199 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Title</title>
+	<title>版块详情</title>
 	<link rel="icon" href="/leek_bbs/statics/images/favicon.ico" >
 	<link rel="stylesheet" href="/leek_bbs/statics/yu-ui/js_css/yu.css">
 	<link rel="stylesheet" href="/leek_bbs/statics/layui/css/layui.css">
 	<link rel="stylesheet" href="/leek_bbs/statics/bootstrap-3.3.7/css/bootstrap.min.css">
 	<link rel="stylesheet" href="/leek_bbs/statics/css/head.css">
-	<!-- vue-element插件样式 -->
 	<link rel="stylesheet" href="/leek_bbs/statics/vue/element-ui/index.css">
-	<!--    引入新css样式！该样式为 更改后的全部样式所存的地方，必须要引入！-->
 	<link rel="stylesheet" href="/leek_bbs/statics/css/modern-ui.css">
-
-	<style>
-
-		.bgc{
-			background-color: #fff;
-			margin-top:15px ;
-
-			/*   margin-left:2px ;*/
-		}
-		.bord{
-			border: 1px solid #E6E6E6;
-		}
-		.content-bord{
-			border-bottom: 1px solid #E6E6E6;
-		}
-		a{
-			color: #444;
-			text-decoration: none;
-		}
-		h1 span{font-size: 25px}
-		.topinfo,.sel{
-			padding-top: 18px;
-		}
-		.topico img{
-			width:65px;height:65px;
-		}
-		.comiis_infobox{
-			margin-left: -100px;
-		}
-		.y a{
-			float:right;
-			padding-left: 20px;
-		}
-		.msg-content1{
-			margin-left: -20px;
-		}
-		.y-right {
-			float: right;
-			margin-top: -40px;
-		}
-		.comiis_infobox .comiis_infotit h1 a {
-			font-size: 20px;
-			padding-right: 5px;
-		}
-		.comiis_infotit h1 span, .y a,.anno{
-			color: #999;
-			font-size: 12px;
-			font-weight: 100;
-		}
-		.annohead{
-			margin-top: 10px;
-			margin-bottom: -5px;
-			font-size: 15px;
-		}
-		.annoinfo{
-			font-weight:bold ;
-		}
-		.pipe {
-			margin: 0 5px;
-			color: #CCC;
-		}
-
-		.infoico img{
-			width:48px;height:48px;
-		}
-		select{
-			margin-left:10px ;
-		}
-		.content-hover .content-bord:hover{
-			background-color: #e5e5e5;
-		}
-		.w-e-text-container{
-			height: 160px !important;
-		}
-		.m-span-color{
-			color: #ff6f3d;
-		}
-		.annoinfo .first-li{
-			border: none;
-			padding-top: 4px;
-		}
-		.annoinfo a:hover{
-			color: #ff6f3d !important;
-		}
-		.annoinfo ul li{
-			margin-left: 20px;
-			margin-bottom: 10px;
-			padding-top: 8px;
-			width: 295px;
-			height: 36px;
-			line-height: 36px;
-			/*文本不换行*/
-			white-space: nowrap;
-			/*超过部分隐藏*/
-			overflow: hidden;
-			/*超过部分用...代替*/
-			text-overflow: ellipsis;
-			border-top: 1px solid #dcdbdb;
-		}
-		/*#editor > div:last-child{
-			height: 100px !important;
-		}*/
-	</style>
 </head>
-<body style="background-color: #F3F3F3; width:100%;">
-<div class="container-fluid" >
-	<!-- 导航开始 -->
+<body>
+
+<div id="modern-index-shell" v-cloak>
+	<div class="m-theme-toggle-fab" @click="toggleTheme" :title="isDarkMode ? '切换到白昼' : '切换到黑夜'">
+		<i class="glyphicon" :class="isDarkMode ? 'glyphicon-certificate' : 'glyphicon-adjust'"></i>
+	</div>
+
 	<div id="hmc">
 		<head_menu_comp :is_login="isLoginShow" ref="fo"></head_menu_comp>
 	</div>
-	<!-- 导航结束 -->
-	<div class="container" id="app" v-cloak="">
-		<div class="row">
-			<span>
-				<a href="/leek_bbs/skipPage/index"><span class="glyphicon glyphicon-home"></span></a>&nbsp;>&nbsp;
-				<a href="/leek_bbs/skipPage/index">论坛</a>&nbsp;>&nbsp;
-				<a href="/leek_bbs/skipPage/index">{{platePostInfo.plate_vest}}</a>&nbsp;>&nbsp;
-				<a href="/leek_bbs/skipPage/index">{{platePostInfo.plate_name}}</a>
-			</span>
+
+	<div class="m-container container" id="app">
+
+		<div class="m-breadcrumb">
+			<a href="/leek_bbs/skipPage/index"><i class="glyphicon glyphicon-home"></i> 论坛</a>
+			<span class="m-sep">/</span>
+			<a href="#">{{platePostInfo.plate_vest}}</a>
+			<span class="m-sep">/</span>
+			<span class="m-current">{{platePostInfo.plate_name}}</span>
 		</div>
-		<div class="row bgc bord">
-			<div class="col-sm-2 col-xs-2 topinfo" style="height: 110px;">
-				<div class="topico"><img :src="'/leek_bbs/statics/images/'+platePostInfo.plate_photo" ></div>
+
+		<div class="m-plate-header m-card">
+			<div class="m-plate-cover">
+				<img :src="'/leek_bbs/statics/images/'+platePostInfo.plate_photo" :alt="platePostInfo.plate_name">
 			</div>
-			<div class="col-sm-6 ">
-				<div class="comiis_infobox"	style="line-height: 20px;">
-					<div class="comiis_infotit cl">
-						<h1>
-							<a href="https://bbs.binmt.cc/forum-2-1.html">{{platePostInfo.plate_name}}</a>
-							<span>今日: <strong class="xi1">{{todayPostCount}}</strong><span class="pipe">/</span>
-								主题: <strong class="xi1">{{platePostInfo.theme}}</strong><span class="pipe">/</span>
-								排名: <strong class="xi1">{{plateRanking}}</strong>
-								<b class="ico_increase">&nbsp;</b>
-							</span>
-						</h1>
-						</h1>
+			<div class="m-plate-info">
+				<div class="m-plate-title">
+					<h1>{{platePostInfo.plate_name}}</h1>
+					<div class="m-plate-stats">
+						<span>今日 <b>{{todayPostCount}}</b></span>
+						<span class="m-dot"></span>
+						<span>主题 <b>{{platePostInfo.theme}}</b></span>
+						<span class="m-dot"></span>
+						<span>排名 <b>{{plateRanking}}</b></span>
 					</div>
-					<div class="comiis_infotxt">
-					</div>
-					<div>暂无简介! sss</div>
 				</div>
+				<p class="m-plate-desc">欢迎来到 {{platePostInfo.plate_name}} 版块，共同建设和谐内容社区。</p>
 			</div>
-			<div class="col-sm-4 topinfo">
-				  <span class="y">
-					  <a href="javascript:;"
-						 id="a_favorite" class="fa_fav" @click="collectPlate()"><span style="font-size: 10px;" class="glyphicon glyphicon-star-empty"></span>收藏本版
-					</a>
-				</span>
+			<div class="m-plate-action">
+				<button class="m-btn-favorite" @click="collectPlate()">
+					<i class="glyphicon glyphicon-star-empty"></i> 收藏本版
+				</button>
 			</div>
 		</div>
-		<div class="row" >
+
+		<div class="row">
 			<div class="col-sm-8">
-				<div class="row bgc" >
-					<div class="col-sm-12 bord" style="background-color: #FAFAFA;">
-						<div style="height: 57px;" class="sel">筛选:
-							<select>
-							<option>全部主题</option>
-							</select>
-							<select v-model="select1" @change="selectTimeChange">
-								<option value="0">全部时间</option>
-								<option value="1">一天</option>
-								<option value="2">两天</option>
-								<option value="3">一周</option>
-								<option value="4">一个月</option>
-								<option value="5">三个月</option>
-							</select>
-							排序:<select v-model="select2" @change="selectChange">
+
+				<div class="m-filter-bar m-card">
+					<div class="m-filter-left">
+						<select v-model="select1" @change="selectTimeChange" class="m-select">
+							<option value="0">全部时间</option>
+							<option value="1">一天内</option>
+							<option value="2">两天内</option>
+							<option value="3">一周内</option>
+						</select>
+						<select v-model="select2" @change="selectChange" class="m-select">
 							<option value="1">默认排序</option>
-							<option value="2">发帖时间</option>
-							<option value="3">回复/查看</option>
-							<!--<option value="4">查看</option>-->
+							<option value="2">最新发帖</option>
+							<option value="3">最热回复</option>
 							<option value="5">最后发表</option>
 						</select>
-						</div>
-						<div class="y-right">
-							<a href="javascript:;" @click="getPlatePostInfo(pl_type,'new')">最新</a>
-							<span class="pipe">|</span>
-							<a href="javascript:;" @click="getPlatePostInfo(pl_type,'hot')">热门</a>
-							<span class="pipe">|</span>
-							<a href="javascript:;" @click="getPlatePostInfo(pl_type,'heat')">热帖</a>
-							<span class="pipe">|</span>
-							<a href="javascript:;" @click="getPlatePostInfo(pl_type,'essence')">精华</a>
-							<span>
-							<span class="pipe">|</span>
-							<a href="#" @click="changeIsTopStatus()" id="isTops" title="隐藏置顶" v-if="isTopInfo!=''&& judgeIstopPost">置顶隐藏</a>
-							<a href="#" @click="changeIsTopStatus()" title="显示置顶" v-else>显示置顶</a>
-							</span>
-						</div>
 					</div>
-					<!--置顶主题-->
-					<div id="isTop" v-if="isTopInfo!=''&& judgeIstopPost">
-						<div class="row" v-for="(item,index) in isTopInfo"  :key="item.id">
-							<div class="col-sm-12 content-hover"  >
-								<div class="container content-bord" style="width: 95%;height: 70px;" >
-									<div class="row" style="margin:8px 0px" >
-										<div class="col-sm-1 infoico" >
-											<a :href="'/leek_bbs/skipPage/personal?id='+item.user_id">
-												<img :src="'/leek_bbs/'+item.picture" alt="版本发布" style="margin-left: -20px;border-radius:50%;">
-											</a>
-										</div>
-										<div class="col-sm-9">
-											<div class="row">
-												<div class="col-sm-12 msg-content1">
-<!--													<a  :href="'/leek_bbs/skipPage/blogPage?theme_id='+item.id" style="font-size: 16px;color: red;font-weight: bold;">{{item.title}}</a>-->
-													<a
-															:href="'/leek_bbs/skipPage/blogPage?theme_id='+item.id"
-															style="font-size: 16px;color: red;font-weight: bold;"
-															@click="handleBrowseCount(item.id)"
-													>{{item.title}}</a>
-												</div>
-												<div class="col-sm-12 msg-content1">
-													<p style="padding-top:8px;">
-														<em class="km_user">
-															<a href="" c="1" style="color: #FF0000;" mid="card_4835"  initialized="true">{{item.post_author}}</a></em>
-														<em><span>{{item.publish_time| formatDate}}</span> 发表</em>
-														<em>最后回复于<a href=""><span title="2020-4-8 19:53">4&nbsp;天前</span></a></em>
-													</p>
-												</div>
-											</div>
-										</div>
-										<div class="col-sm-2" style="">
-											<div class="row">
-												<div class="col-sm-12">
-													<span class="glyphicon glyphicon-remove" @click="deleteIsTop(item.id)" style="padding-left:10px;color: #999;float: right"></span>
-												</div>
-											</div>
-											<div class="row">
-												<div class="col-sm-12" style="padding-top: 20px;">
-													<span class="glyphicon glyphicon-eye-open" style="color: #999; "></span><span style="margin-left: 5px">{{item.browse_count}}</span>
-													<span class="glyphicon glyphicon-comment" style="color: #999;padding-left:10px;" ></span><span style="margin-left: 5px">{{item.reply_count}}</span>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+					<div class="m-filter-right">
+						<a href="javascript:;" :class="{active: selectType=='new'}" @click="getPlatePostInfo(pl_type,'new')">最新</a>
+						<a href="javascript:;" :class="{active: selectType=='hot'}" @click="getPlatePostInfo(pl_type,'hot')">热门</a>
+						<a href="javascript:;" :class="{active: selectType=='essence'}" @click="getPlatePostInfo(pl_type,'essence')">精华</a>
 					</div>
-					<!--板块主题开始-->
-					<div class="row" v-if="isTopInfo!=''&& judgeIstopPost"><!--judgeIstopPost-->
-						<div class="col-sm-12">
-							<div class="container" style="width: 95%;">
-								<div class="row">
-									<div class="col-sm-12 content-bord" style="background: #fafafa;"><p style="padding-top: 8px;;font-size: 14px;">板块主题</p></div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!--板块主题结束-->
+				</div>
 
-					<div class="row" v-for="(item,index) in otherInfo">
-						<div class="col-sm-12 content-hover" style="padding: 5px 12px;">
-							<div class="container content-bord" style="width: 95%;height: 70px;" >
-								<div class="row" style="margin:8px 0px" >
-									<div class="col-sm-1 infoico" >
-										<a :href="'/leek_bbs/skipPage/personal?id='+item.user_id">
-											<img :src="'/leek_bbs/'+item.picture"  alt="版本发布" style="margin-left: -20px; border-radius:50%;">
-										</a>
-									</div>
-									<div class="col-sm-9">
-										<div class="row">
-											<div class="col-sm-12 msg-content1">
-<!--												<a :href="'/leek_bbs/skipPage/blogPage?theme_id='+item.id" style="font-size: 16px;color: red;font-weight: bold;">-->
-<!--													{{item.title}}-->
-<!--												</a>-->
-												<a
-														:href="'/leek_bbs/skipPage/blogPage?theme_id='+item.id"
-														style="font-size: 16px;color: red;font-weight: bold;"
-														@click="handleBrowseCount(item.id)"
-												>{{item.title}}</a>
-											</div>
-											<div class="col-sm-12 msg-content1">
-												<p style="padding-top:8px;">
-													<em class="km_user">
-														<a href="" c="1" style="color: #FF0000;" mid="card_4835"  initialized="true">{{item.post_author}}</a>
-													</em>
-													<em><span>{{item.publish_time| formatDate}}</span> 发表</em>
-													<em>最后回复于
-														<a href=""><span title="2020-4-8 19:53">{{item.last_reply_time | dateChangeFormat1}}</span></a>
-													</em>
-												</p>
-											</div>
-										</div>
-									</div>
-									<div class="col-sm-2" style="">
-										<div class="row">
-											<div class="col-sm-12" style="padding-top: 35px;">
-												<span class="glyphicon glyphicon-eye-open" style="color: #999; "></span><span style="margin-left: 5px">{{item.browse_count}}</span>
-												<span class="glyphicon glyphicon-comment" style="color: #999;padding-left:10px;" ></span><span style="margin-left: 5px">{{item.reply_count}}</span>
-											</div>
-										</div>
-									</div>
+				<div class="m-post-list-wrapper m-card">
+					<div class="m-post-section" v-if="isTopInfo.length > 0 && judgeIstopPost">
+						<div class="m-section-label">置顶主题</div>
+						<div v-for="item in isTopInfo" :key="'top-'+item.id" class="m-post-item is-top">
+							<div class="m-item-avatar">
+								<img :src="'/leek_bbs/'+item.picture">
+							</div>
+							<div class="m-item-main">
+								<a :href="'/leek_bbs/skipPage/blogPage?theme_id='+item.id" class="m-item-title" @click="handleBrowseCount(item.id)">
+									<span class="m-tag-top">置顶</span> {{item.title}}
+								</a>
+								<div class="m-item-meta">
+									<span class="m-author">{{item.post_author}}</span>
+									<span>{{item.publish_time | formatDate}}</span>
 								</div>
 							</div>
-						</div>
-					</div>
-					<!--无数据时显示-->
-					<div class="row" v-if="otherInfo==''||otherInfo==null">
-						<div class="col-sm-12">
-							<div style="height: 40px">
-								<h3 align="center">该版块暂无数据</h3>
+							<div class="m-item-stats">
+								<span><i class="glyphicon glyphicon-eye-open"></i> {{item.browse_count}}</span>
+								<span><i class="glyphicon glyphicon-comment"></i> {{item.reply_count}}</span>
 							</div>
 						</div>
 					</div>
-					<!--分页开始-->
-					<div class="row" style="width:100%;padding: 10px" align="center" v-if="otherInfo!=''&&otherInfo!=null">
+
+					<div class="m-post-section">
+						<div class="m-section-label">版块主题</div>
+						<div v-for="item in otherInfo" :key="item.id" class="m-post-item">
+							<div class="m-item-avatar">
+								<img :src="'/leek_bbs/'+item.picture">
+							</div>
+							<div class="m-item-main">
+								<a :href="'/leek_bbs/skipPage/blogPage?theme_id='+item.id" class="m-item-title" @click="handleBrowseCount(item.id)">
+									{{item.title}}
+								</a>
+								<div class="m-item-meta">
+									<span class="m-author">{{item.post_author}}</span>
+									<span>{{item.publish_time | formatDate}}</span>
+									<span class="m-sep">·</span>
+									<span>最后回复 {{item.last_reply_time | dateChangeFormat1}}</span>
+								</div>
+							</div>
+							<div class="m-item-stats">
+								<span><i class="glyphicon glyphicon-eye-open"></i> {{item.browse_count}}</span>
+								<span><i class="glyphicon glyphicon-comment"></i> {{item.reply_count}}</span>
+							</div>
+						</div>
+
+						<div class="m-empty-state" v-if="!otherInfo || otherInfo.length === 0">
+							<p>该版块暂无数据</p>
+						</div>
+					</div>
+
+					<div class="m-pagination-container">
 						<el-pagination
 								background
 								layout="prev, pager, next"
-								prev-text="上一页"
-								next-text="下一页"
-								@size-change="handleSizeChange"
 								@current-change="handleCurrentChange"
-								:current-page=currentPage
-								:page-size=pageSize
-								:total=totalCount>
+								:current-page="currentPage"
+								:page-size="pageSize"
+								:total="totalCount">
 						</el-pagination>
 					</div>
-					<!--分页结束-->
 				</div>
-				<!--快速发帖-->
-				<div class="row bgc" >
-					<div class="col-sm-12 bord annohead" style="background-color: #FAFAFA;height: 40px;">
-						<p style="line-height: 40px;">快速发帖</p>
+
+				<div class="m-quick-post-modern m-card">
+					<div class="m-card-header-sleek">
+						<span class="m-header-icon"><i class="glyphicon glyphicon-edit"></i></span>
+						<span class="m-header-text">发表新动态</span>
 					</div>
-					<div class="col-sm-12" style="width:103%;height: 52px; margin-top: 20px">
-						<div class="row">
-							<div class="col-sm-1" style="margin-top: 7px;">
-								<b >标题:</b>
-							</div>
-							<div class="col-sm-11">
-								<input type="text" id="title" placeholder="请输入标题..." class="layui-input" style="margin-left: -25px;">
-							</div>
+					<div class="m-card-body-modern">
+						<div class="m-input-wrapper-modern">
+							<input type="text" id="title" placeholder="给你的帖子起一个吸引人的标题..." class="m-input-minimal">
 						</div>
-					</div>
-					<div class="col-md-9" style="width: 100%;background-color: #fff;" v-if="!loggingStatus">
-						<div>
-							<div style="background:  #FAFBFC; height: 35px; width: 100%">
-								<ul class="list-inline" style="padding-top: 8px;">
-									<li><span class="glyphicon glyphicon glyphicon glyphicon-bold" aria-hidden="true"></span></li>
-									<li><span class="glyphicon glyphicon glyphicon glyphicon-italic" aria-hidden="true"></span></li>
-									<li><span class="glyphicon glyphicon glyphicon-align-left" aria-hidden="true"></span></li>
-									<li><span class="glyphicon glyphicon glyphicon-align-center" aria-hidden="true"></span></li>
-									<li><span class="glyphicon glyphicon glyphicon-align-right" aria-hidden="true"></span></li>
-									<li><span class="glyphicon glyphicon glyphicon-picture" aria-hidden="true"></span></li>
-								</ul>
-								<div style="padding-top:50px; padding-left: 220px; height: 140px" >
-									<label>你需要登陆后才能发表主题</label>
-									<a href="javascript:;" style="color:lightskyblue" onclick="layui.register()">立即注册</a>|
-									<a herf="javascript:;" onclick="layui.login()" style="color:lightskyblue">立即登录</a>
+						<div class="m-editor-wrapper-modern">
+							<div id="editor_two"></div>
+							<div class="m-editor-mask" v-if="!loggingStatus">
+								<p>你需要登录后才能发表主题</p>
+								<div class="m-mask-btns">
+									<a href="javascript:;" onclick="layui.login()" class="m-btn-primary">立即登录</a>
+									<a href="javascript:;" onclick="layui.register()" class="m-btn-link">立即注册</a>
 								</div>
 							</div>
 						</div>
-						<div style="padding-top: 100px;padding-bottom: 5px; padding-left: 15px">
-							<a href="" style="float: right;">本版积分规则</a>
+						<div class="m-post-actions-modern" v-if="loggingStatus">
+							<span class="m-post-tips"><i class="glyphicon glyphicon-info-sign"></i> 友善发言，共建和谐社区</span>
+							<button class="m-btn-submit-modern" @click="quickSendPost()">
+								<span>发布主题</span>
+								<i class="glyphicon glyphicon-send"></i>
+							</button>
 						</div>
 					</div>
-					<div class="col-sm-12">
-						<div  id="editor_two"></div>
-						<div v-if="loggingStatus">
-							<button type="button" @click="quickSendPost()" style="float: right;margin: 10px;" class="layui-btn layui-btn-primary"  >提交</button>
+				</div>
+			</div>
+
+			<div class="col-sm-4">
+				<div class="m-sticky-sidebar">
+					<div class="m-side-card m-card">
+						<div class="m-card-header">版块公告</div>
+						<div class="m-notice-content">
+							<template v-if="notices">
+								<h4 class="m-notice-title">{{notices.n_title}}</h4>
+								<div class="m-notice-body" v-html="notices.n_content"></div>
+								<div class="m-notice-author">—— {{notices.another_name}}</div>
+							</template>
+							<p v-else class="m-empty-text">暂无公告</p>
 						</div>
 					</div>
 
-				</div>
-			</div>
-			<!--右侧栏-->
-			<div class="col-sm-4 " style="position: sticky; top: 0px;" v-cloak="">
-				<div class="row bgc" style="margin-left:10px;min-height: 230px;">
-					<div class="col-sm-12  anno">
-						<h3 class="annohead">公告</h3><hr style="margin-bottom: 8px"/>
-						<div ><span v-if="notices==''||notices==null">暂无公告!</span>
-							<span v-else><b style="color: red;font-size: 16px">公告标题:{{notices.n_title}}</b>
-								<span style="color: red;font-size: 15px">版主:{{notices.another_name}}</span>
-								<h6 style="color: red">公告内容:</h6><p style="color: black;font-size: 14px" v-html="notices.n_content"></p></span>
-						</div>
-					</div>
-				</div>
-				<div class="row bgc" style="margin-left:10px ;">
-					<div class="col-sm-12 bord anno">
-						<p class="annohead">热点动态</p>
-						<hr style="margin-bottom: 8px"/>
-						<div class="annoinfo">
-							<ul>
-								<li style="padding: 8px;" v-for="(item,index) in postHeats" :class="{'first-li':index==0}">
-									<a style="font-size: 14px;" :href="'/leek_bbs/skipPage/blogPage?theme_id='+item.id" target="_blank">
-										<span :class="{'m-span-color':(index==0 || index==1 || index==2)}">{{++index}}.</span>{{item.title}}
-									</a>
-								</li>
-							</ul>
+					<div class="m-side-card m-card">
+						<div class="m-card-header">热点动态</div>
+						<div class="m-hot-list">
+							<div v-for="(item, index) in postHeats" :key="index" class="m-hot-item">
+								<span class="m-hot-rank" :class="'rank-' + (index+1)">{{index + 1}}</span>
+								<a :href="'/leek_bbs/skipPage/blogPage?theme_id='+item.id" class="m-hot-title">{{item.title}}</a>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -409,6 +202,7 @@
 		</div>
 	</div>
 </div>
+
 
 <script src="/leek_bbs/statics/component/common_import.js"></script>
 
