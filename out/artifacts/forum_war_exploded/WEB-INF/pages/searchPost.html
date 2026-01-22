@@ -114,6 +114,13 @@
 </div>
 <script src="/leek_bbs/statics/component/head_menu.js"></script>
 <script>
+    // 获取URL参数的函数
+    function getUrlParam(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return decodeURIComponent(r[2]);
+        return null;
+    }
     const searchApp = new Vue({
         el:"#searchApp",
         data:{

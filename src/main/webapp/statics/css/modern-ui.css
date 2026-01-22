@@ -861,12 +861,108 @@ body {
     --m-border: #edf2f7;
 }
 
+/* =========================================================
+   深色模式优化
+   ========================================================= */
+
+/* 确保深色模式变量定义正确且一致 */
 #modern-index-shell.dark-theme {
-    --m-bg: #1a202c;
-    --m-card: #2d3748;
-    --m-text: #edf2f7;
-    --m-border: #4a5568;
+    --m-bg: #1a202c !important;
+    --m-card: #2d3748 !important;
+    --m-text: #e2e8f0 !important;
+    --m-border: #4a5568 !important;
+    --m-text-subs: #a0aec0 !important;
+
+    /* 确保全局背景色应用 */
     background-color: var(--m-bg) !important;
+}
+/* 覆盖之前的重复定义 */
+#modern-index-shell.dark-theme body {
+    background-color: var(--m-bg) !important;
+    color: var(--m-text) !important;
+}
+
+/* 确保所有卡片都应用深色模式 */
+#modern-index-shell.dark-theme .m-card {
+    background-color: var(--m-card) !important;
+    border-color: var(--m-border) !important;
+    color: var(--m-text) !important;
+}
+
+/* 深色模式下的文字颜色修正 */
+#modern-index-shell.dark-theme .m-plate-title h1,
+#modern-index-shell.dark-theme .m-plate-stats,
+#modern-index-shell.dark-theme .m-plate-desc,
+#modern-index-shell.dark-theme .m-item-title,
+#modern-index-shell.dark-theme .m-author,
+#modern-index-shell.dark-theme .m-card-header,
+#modern-index-shell.dark-theme .m-notice-title,
+#modern-index-shell.dark-theme .m-notice-body,
+#modern-index-shell.dark-theme .m-breadcrumb,
+#modern-index-shell.dark-theme .m-hot-title,
+#modern-index-shell.dark-theme .m-header-text,
+#modern-index-shell.dark-theme .m-post-tips,
+#modern-index-shell.dark-theme .m-filter-right a {
+    color: var(--m-text) !important;
+}
+
+/* 弱化文字在深色模式下的颜色 */
+#modern-index-shell.dark-theme .m-plate-stats span:not(b),
+#modern-index-shell.dark-theme .m-item-meta,
+#modern-index-shell.dark-theme .m-item-stats,
+#modern-index-shell.dark-theme .m-hot-rank,
+#modern-index-shell.dark-theme .m-notice-author,
+#modern-index-shell.dark-theme .m-breadcrumb a,
+#modern-index-shell.dark-theme .m-filter-right a:not(.active) {
+    color: var(--m-text-subs) !important;
+}
+
+/* 面包屑当前项颜色 */
+#modern-index-shell.dark-theme .m-breadcrumb .m-current {
+    color: #ff8e64 !important;
+}
+
+/* 深色模式下的输入框 */
+#modern-index-shell.dark-theme .m-input-minimal {
+    background-color: #2d3748 !important;
+    border-color: #4a5568 !important;
+    color: #e2e8f0 !important;
+}
+
+#modern-index-shell.dark-theme .m-input-minimal:focus {
+    background-color: #1a202c !important;
+    border-color: #ff6f3d !important;
+    box-shadow: 0 4px 12px rgba(255, 111, 61, 0.2) !important;
+}
+
+/* 深色模式下的富文本编辑器 */
+#modern-index-shell.dark-theme .w-e-toolbar {
+    background: #1f2937 !important;
+    border-color: #374151 !important;
+}
+
+#modern-index-shell.dark-theme .w-e-text {
+    background: #111827 !important;
+    color: #e5e7eb !important;
+}
+
+/* 深色模式下的按钮 */
+#modern-index-shell.dark-theme .m-btn-favorite {
+    background: #2d3748 !important;
+    border-color: #ff6f3d !important;
+    color: #ff8e64 !important;
+}
+
+#modern-index-shell.dark-theme .m-btn-favorite:hover {
+    background: #ff6f3d !important;
+    color: white !important;
+}
+
+/* 切换按钮在深色模式下的样式 */
+#modern-index-shell.dark-theme .m-theme-toggle-fab {
+    background: #4a5568 !important;
+    color: #fbd38d !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
 }
 
 .dark-theme .m-card { background: var(--m-card) !important; color: var(--m-text); border-color: var(--m-border); }

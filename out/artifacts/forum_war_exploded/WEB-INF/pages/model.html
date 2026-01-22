@@ -14,9 +14,9 @@
 <body>
 
 <div id="modern-index-shell" v-cloak>
-	<div class="m-theme-toggle-fab" @click="toggleTheme" :title="isDarkMode ? '切换到白昼' : '切换到黑夜'">
-		<i class="glyphicon" :class="isDarkMode ? 'glyphicon-certificate' : 'glyphicon-adjust'"></i>
-	</div>
+<!--	<div class="m-theme-toggle-fab" @click="toggleTheme" :title="isDarkMode ? '切换到白昼' : '切换到黑夜'">-->
+<!--		<i class="glyphicon" :class="isDarkMode ? 'glyphicon-certificate' : 'glyphicon-adjust'"></i>-->
+<!--	</div>-->
 
 	<div id="hmc">
 		<head_menu_comp :is_login="isLoginShow" ref="fo"></head_menu_comp>
@@ -225,7 +225,8 @@
             el:"#app",
             data:{
                 pageSize:5,			//每页显示多少条数据
-                currentPage:1,		//当前页
+				isDarkMode: false, // 添加深色模式状态
+				currentPage:1,		//当前页
                 totalCount:0,		//总数据条数
                 platePostInfo:'',
                 judgeIstopPost:true, //是否显示置顶信息
@@ -253,6 +254,39 @@
             },
 
             methods:{
+				toggleTheme() {
+					this.isDarkMode = !this.isDarkMode;
+					const shell = document.getElementById('modern-index-shell');
+					if (shell) {
+						if (this.isDarkMode) {
+							shell.classList.add('dark-theme');
+							// 保存主题偏好到localStorage
+							localStorage.setItem('modern-ui-theme', 'dark');
+						} else {
+							shell.classList.remove('dark-theme');
+							localStorage.setItem('modern-index-shell', 'light');
+						}
+					}
+				},
+
+				// 添加一个初始化主题的方法
+				initTheme() {
+					// 检查localStorage中的主题设置
+					const savedTheme = localStorage.getItem('modern-ui-theme');
+					const shell = document.getElementById('modern-index-shell');
+
+					if (savedTheme === 'dark') {
+						this.isDarkMode = true;
+						if (shell) {
+							shell.classList.add('dark-theme');
+						}
+					} else {
+						this.isDarkMode = false;
+						if (shell) {
+							shell.classList.remove('dark-theme');
+						}
+					}
+				},
 				handleBrowseCount(postId) {
 					// 改用GET请求，参数通过params传递
 					axios.get("http://localhost:8080/leek_bbs/bbs/postBrowse/clickAddBrowseCount", {
@@ -277,6 +311,7 @@
 								console.error("浏览次数增加失败", error);
 							});
 				},
+
                 //收藏板块
                 collectPlate(){
                     if (userInfo != null){
@@ -546,7 +581,8 @@
                 this.init();
                 this.initPosts();
                 this.getPlType();
-            },
+				this.initTheme();  // 添加：初始化主题
+			},
             filters:{
                 formatDate(timestamp){
                     //timestamp是整数，否则要parseInt转换,不会出现少个0的情况
