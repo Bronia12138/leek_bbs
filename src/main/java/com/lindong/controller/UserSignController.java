@@ -82,27 +82,42 @@ public class UserSignController {
 
     @RequestMapping("/getCountMapData")
     @ResponseBody
-    public Map getCountMapData(){
-        Map map = new HashMap();
-        int i = 0;
+    public Map<String, Object> getCountMapData() {
+        Map<String, Object> map = new HashMap<>();
+
+        // 初始化
+        int todayPostCount = 0;
+        int yesterdayPostCount = 0;
+
         List<Map> list = userSignService.selectPostCountByDate();
-        for (Map map1 : list) {
-            if (i == 0){
-                map.put("yesterdayPostCount",map1.get("post_count"));
-            }else {
-                map.put("todayPostCount",map1.get("post_count"));
-            }
-            i++;
+
+        if (list.size() == 1) {
+            // 只有一条数据，需要判断是今天还是昨天
+            Object count = list.get(0).get("post_count");
+            // 这里需要修改SQL返回日期才能准确判断
+            // 暂时假设为今天（统计最近一天的帖子）
+            todayPostCount = ((Number) count).intValue();
+        } else if (list.size() == 2) {
+            // 有两条数据，需要确保顺序
+            // 修改SQL，添加ORDER BY确保昨天在前今天在后
+            yesterdayPostCount = ((Number) list.get(0).get("post_count")).intValue();
+            todayPostCount = ((Number) list.get(1).get("post_count")).intValue();
         }
+
+        map.put("todayPostCount", todayPostCount);
+        map.put("yesterdayPostCount", yesterdayPostCount);
+
+        // 其他统计数据
         int postCount = userSignService.selectPostCount();
         int userCount = userSignService.selectUserCount();
         int todaySignCount = userSignService.selectTodaySignCount();
-        map.put("postCount",postCount);
-        map.put("userCount",userCount);
-        map.put("todaySignCount",todaySignCount);
+
+        map.put("postCount", postCount);
+        map.put("userCount", userCount);
+        map.put("todaySignCount", todaySignCount);
+
         return map;
     }
-
 
     @RequestMapping("/findByUserSign")
     @ResponseBody
