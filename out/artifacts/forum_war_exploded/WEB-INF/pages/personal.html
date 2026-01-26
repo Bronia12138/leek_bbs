@@ -137,10 +137,10 @@
                             <span>回帖数</span>&nbsp;<span>{{userPostDetailCount}}</span>&nbsp;|&nbsp;
                             <span>日志数</span>&nbsp;<span>{{userLogCount}}</span>&nbsp;|&nbsp;
                             <span>积分数</span>&nbsp;<span>{{integral.total_integral}}</span>&nbsp;|&nbsp;
-<!--                            <span>好评数</span>&nbsp;-->
-<!--                            <span v-if="basicUserInfo.post_topTotalCount!=null&&basicUserInfo.post_topTotalCount!=''">-->
-<!--                                {{basicUserInfo.post_topTotalCount}}-->
-<!--                            </span>-->
+                            <span>好评数</span>&nbsp;
+                            <span v-if="basicUserInfo.post_topTotalCount!=null&&basicUserInfo.post_topTotalCount!=''">
+                                {{basicUserInfo.post_topTotalCount}}
+                            </span>
                             <span v-else>0</span>
                             &nbsp;|&nbsp;
                             <span>分享数</span>&nbsp;<span>{{basicUserInfo.share_totalCount}}</span>
@@ -303,6 +303,13 @@
 <script src="/leek_bbs/statics/component/wangEditor.min.js"></script>
 <script src="/leek_bbs/statics/component/wangEditCommon.js"></script>
 <script>
+    function getUrlParam(name) {
+        let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        let r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]);
+        return null;
+    }
+
     let height;
     let personalApp;
     setTimeout(function () {
@@ -715,7 +722,9 @@
 
        });
        //编辑器的创建一定要在vue实例注册后
-       createEdit("editor");
+       if (document.getElementById("editor")) {
+           createEdit("editor");
+       }
        layui.define(['element','layer','layedit'],function (exports) {
            var element = layui.element;
                layer = layui.layer,

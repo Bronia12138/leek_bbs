@@ -11,6 +11,7 @@ import com.lindong.service.IUserService;
 import com.lindong.service.IUserSignService;
 import com.lindong.utils.EmailUtil;
 import com.lindong.utils.IPUtils;
+import com.lindong.utils.RedisUtil;
 import com.lindong.utils.VerifyCode;
 import com.lindong.utils.shiro.MD5;
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 
 @Controller
@@ -36,6 +38,9 @@ public class UserController {
     private IUserSignService userSignService;
     @Resource
     private IPostBrowseCommentService postService;
+    @Resource
+    private RedisUtil redisUtil;
+
 
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     @ResponseBody
@@ -183,22 +188,31 @@ public class UserController {
 
     @RequestMapping("/sendEmail")
     @ResponseBody
-    public ApiResult sendEmail(HttpServletRequest request){
+    public ApiResult sendEmail(HttpServletRequest request) {
+
         String username = request.getParameter("username");
+        String email;
         String emailCode;
-        if(username != null){
-            User byName = userService.findByName(username);
-            if (byName == null){
+
+        if (username != null) {
+            User user = userService.findByName(username);
+            if (user == null) {
                 throw new CustomException(ResultCode.USERNAME_ERROR);
             }
-            emailCode = EmailUtil.sendEmail(byName.getEmail());
-            request.getSession().setAttribute("uid",byName.getId());
-        }else {
-            emailCode = EmailUtil.sendEmail(request.getParameter("email"));  //发送邮箱验证码
+            email = user.getEmail();
+        } else {
+            email = request.getParameter("email");
         }
-        request.getSession().setAttribute("emailCode",emailCode);
+
+        emailCode = EmailUtil.sendEmail(email);
+
+        // Redis key
+        String redisKey = "captcha:email:" + email;
+        redisUtil.set(redisKey, emailCode, 5, TimeUnit.MINUTES);
+
         return ApiResult.of(ResultCode.SUCCESS);
     }
+
 
 
 }

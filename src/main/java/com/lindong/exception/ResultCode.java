@@ -70,6 +70,8 @@ public enum ResultCode {
     UNKNOWN_ERROR("0x10001", "系统发生了一个未知错误");
 
 
+
+
     //结果码
     private String code;
 

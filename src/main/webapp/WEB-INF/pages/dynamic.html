@@ -2,101 +2,78 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>关注动态</title>
+    <title>关注动态 - 现代内容社区</title>
     <link rel="icon" href="/leek_bbs/statics/images/favicon.ico" >
     <link rel="stylesheet" href="/leek_bbs/statics/yu-ui/js_css/yu.css">
     <link rel="stylesheet" href="/leek_bbs/statics/layui/css/layui.css">
     <link rel="stylesheet" href="/leek_bbs/statics/bootstrap-3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="/leek_bbs/statics/css/main.css">
-    <script src="/leek_bbs/statics/component/common_import.js"></script>
 
-    <!--    引入新css样式！该样式为 更改后的全部样式所存的地方，必须要引入！-->
     <link rel="stylesheet" href="/leek_bbs/statics/css/modern-ui.css">
-    <style>
-        .row > ul > li{
-            margin-left: 30px;
-            padding: 18px 5px;
-            width: 94%;
-            border-bottom: 1px solid #e5e5e5;
-        }
-        .row > ul li a{
-            color: #333;
-        }
-        .row > ul li a:hover h4{
-            color: #ff6f3d;
-        }
-        .d-img{
-            width: 25px !important;
-            height: 25px !important;
-            vertical-align: bottom;
-        }
-        .d-overflow{
-            width: 80%;
-            /*超过部分隐藏*/
-            overflow: hidden;
-            /*超过部分用...代替*/
-            text-overflow: ellipsis;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-        }
-        .d-overflow img{
-            width: 22px;
-            height: 22px;
-        }
-        footer{
-            margin-top: 50px;
-        }
-        .d-hidden{
-            display: none;
-        }
-    </style>
+    <link rel="stylesheet" href="/leek_bbs/statics/css/modern-ui-dynamic.css">
+
+    <script src="/leek_bbs/statics/component/common_import.js"></script>
 </head>
 
 <body>
-<div class="container-fluid">
-    <!-- 导航开始 -->
+<div id="modern-index-shell" data-page="dynamic">
+
     <div id="hmc">
         <head_menu_comp :is_login="isLoginShow" ref="fo"></head_menu_comp>
     </div>
-    <!-- 导航结束 -->
-    <!-- 中间主体部分 -->
-    <div class="container d-hidden" id="dynamicApp">
-        <div class="row">
-            <span style="opacity: .8;">
-                <a href="/leek_bbs/skipPage/index"><span class="glyphicon glyphicon-home"></span></a>&nbsp;>&nbsp;
-                <a href="javascript:;">动态</a>&nbsp;>&nbsp;
-                <span>我的关注</span>
-            </span>
-            <!-- <span style="float: right;"><a href="javascript:;">我的收藏</a></span>-->
+
+    <main class="modern-main-content d-hidden" id="dynamicApp">
+        <div class="container">
+            <nav class="modern-breadcrumb">
+                <a href="/leek_bbs/skipPage/index"><i class="glyphicon glyphicon-home"></i> 首页</a>
+                <span class="sep">/</span>
+                <span class="current">我的关注</span>
+            </nav>
+
+            <div class="dynamic-feed-wrapper" v-cloak>
+                <div class="dynamic-list" v-if="isExistData">
+                    <article class="modern-card dynamic-item" v-for="item in carePosts" v-if="item.id != null">
+                        <a :href="'/leek_bbs/skipPage/blogPage?theme_id='+item.id" :key="item.id" class="item-link">
+                            <header class="item-header">
+                                <img :src="'/leek_bbs/'+item.picture" class="author-avatar" alt="">
+                                <div class="author-meta">
+                                    <span class="author-name">{{item.post_author}}</span>
+                                    <span class="action-label">发布了新主题</span>
+                                </div>
+                            </header>
+
+                            <div class="item-body">
+                                <h2 class="item-title">{{item.title}}</h2>
+                                <div class="item-excerpt" v-html="item.content"></div>
+                            </div>
+                        </a>
+                    </article>
+                </div>
+
+                <div class="modern-empty-state" v-else>
+                    <div class="empty-icon">📂</div>
+                    <h3>暂无动态内容</h3>
+                    <p>关注你感兴趣的人，第一时间获取他们的更新。</p>
+                </div>
+            </div>
         </div>
-        <div class="row" style="margin-top: 20px;width: 94%;background-color: #fff;" v-cloak="">
-            <ul v-if="isExistData">
-                <li v-for="item in carePosts" v-if="item.id != null">
-                    <a :href="'/leek_bbs/skipPage/blogPage?theme_id='+item.id" :key="item.id">
-                        <img :src="'/leek_bbs/'+item.picture" class="d-img img-circle" alt=""><span style="opacity: .7;">&emsp;{{item.post_author}}&emsp;&emsp;发布了新主题</span>
-                        <h4 style="font-weight: bold;">{{item.title}}</h4>
-                        <div class="d-overflow" style="opacity: .7;" v-html="item.content">
-                        </div>
-                    </a>
-                </li>
-            </ul>
-            <div class="row" v-else ><h3 align="center" style="margin: 30px 5px;opacity: .7;">暂无动态内容</h3></div>
-        </div>
-    </div>
-    <!-- 页脚部分 -->
-    <footer id="footer" class="d-hidden">
-        <div class="row">
-            <p style="text-align: center; color: #666; font-size: 14px; margin: 20px 0; line-height: 1.8;">
-                <span>© 2026 就业交流论坛 版权所有</span>
-                <br>
-                <span>邮箱：hanser12581@gmail.com | 友链：www.bronia.xyz</span>
+    </main>
+
+    <footer id="footer" class="modern-footer d-hidden">
+        <div class="container">
+            <p>© 2026 就业交流论坛 · 打造现代内容社区</p>
+            <p class="footer-links">
+                <span>邮箱：hanser12581@gmail.com</span>
+                <span class="dot">·</span>
+                <span>友链：www.bronia.xyz</span>
             </p>
         </div>
     </footer>
 </div>
+
 <script src="/leek_bbs/statics/component/head_menu.js"></script>
 <script>
+    // 保持原有 Vue 实例逻辑不变
     const dynamicApp = new Vue({
         el:"#dynamicApp",
         data:{
@@ -107,7 +84,6 @@
             getCarePostsData(){
                 axios.get(`/leek_bbs/bbs/care/listCarePosts?uid=${userInfo.id}`).then(response => {
                     const data = response.data;
-                    //console.log(data);
                     if (data[0] == null){
                         this.isExistData = false;
                     }
@@ -119,6 +95,7 @@
             }
         }
     });
+
     setTimeout(() => {
         if (userInfo != null){
             dynamicApp.getCarePostsData();

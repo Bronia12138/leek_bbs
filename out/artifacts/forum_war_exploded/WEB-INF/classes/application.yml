@@ -7,3 +7,13 @@ spring:
       additional-paths: resources/**,static/**,templates/**  # 设置热部署监控路径
     livereload:
       enabled: true  # 启用 Livereload 功能
+      # 配置发送方信息
+  mail:
+    host: smtp.qq.com
+    username: 2097911254@qq.com  # 邮箱地址
+    password: wlcfnoewxcbaeb123 # 授权码
+    properties:
+      mail:
+        smtp:
+          ssl:
+            enable: true

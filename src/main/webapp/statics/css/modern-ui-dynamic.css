@@ -1,0 +1,147 @@
+/* 现代动态页面专属样式 */
+
+[data-page="dynamic"] {
+    background-color: #f7f9fc; /* 浅灰底色 */
+    min-height: 100vh;
+}
+
+/* 容器间距 */
+[data-page="dynamic"] .modern-main-content {
+    padding: 30px 0 80px 0;
+}
+
+/* 面包屑改造 */
+[data-page="dynamic"] .modern-breadcrumb {
+    margin-bottom: 24px;
+    font-size: 14px;
+    color: #8a919f;
+}
+
+[data-page="dynamic"] .modern-breadcrumb a {
+    color: #8a919f;
+    transition: color 0.2s;
+}
+
+[data-page="dynamic"] .modern-breadcrumb a:hover {
+    color: #1e80ff;
+    text-decoration: none;
+}
+
+[data-page="dynamic"] .modern-breadcrumb .sep {
+    margin: 0 8px;
+}
+
+/* 卡片基础样式 */
+[data-page="dynamic"] .modern-card {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.05);
+    margin-bottom: 16px;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    border: 1px solid rgba(230, 235, 245, 0.8);
+}
+
+[data-page="dynamic"] .modern-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+[data-page="dynamic"] .item-link {
+    display: block;
+    padding: 24px;
+    text-decoration: none !important;
+    color: inherit;
+}
+
+/* 头部用户信息 */
+[data-page="dynamic"] .item-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+[data-page="dynamic"] .author-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 12px;
+    object-fit: cover;
+    border: 1px solid #eee;
+}
+
+[data-page="dynamic"] .author-name {
+    font-weight: 600;
+    color: #252933;
+    font-size: 15px;
+}
+
+[data-page="dynamic"] .action-label {
+    margin-left: 8px;
+    color: #8a919f;
+    font-size: 14px;
+}
+
+/* 文章内容区 */
+[data-page="dynamic"] .item-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1d2129;
+    margin: 0 0 10px 0;
+    line-height: 1.4;
+}
+
+[data-page="dynamic"] .item-excerpt {
+    font-size: 14px;
+    color: #515767;
+    line-height: 1.6;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* 限制两行 */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* 修复 v-html 可能带来的图片过大问题 */
+[data-page="dynamic"] .item-excerpt img {
+    max-width: 100px;
+    height: auto;
+    border-radius: 4px;
+}
+
+/* 空状态样式 */
+[data-page="dynamic"] .modern-empty-state {
+    text-align: center;
+    padding: 100px 20px;
+    background: #fff;
+    border-radius: 12px;
+}
+
+[data-page="dynamic"] .empty-icon {
+    font-size: 64px;
+    margin-bottom: 20px;
+}
+
+[data-page="dynamic"] .modern-empty-state h3 {
+    color: #252933;
+    font-weight: 600;
+}
+
+[data-page="dynamic"] .modern-empty-state p {
+    color: #8a919f;
+}
+
+/* 页脚样式微调 */
+[data-page="dynamic"] .modern-footer {
+    padding: 40px 0;
+    color: #8a919f;
+    text-align: center;
+    font-size: 13px;
+}
+
+[data-page="dynamic"] .footer-links {
+    margin-top: 8px;
+}
+
+[data-page="dynamic"] .footer-links .dot {
+    margin: 0 10px;
+}
