@@ -1,0 +1,588 @@
+/**
+ * ============================================
+ * 用户设置页面现代化样式 - modern-ui-spacecp.css
+ * ============================================
+ *
+ * 【改造说明】
+ * 本文件为 spacecp.html (用户设置中心) 的页面级样式
+ * 采用现代内容社区产品风格：卡片化布局、浅灰背景、大圆角、柔和阴影
+ *
+ * 【命名空间】
+ * 所有样式均在 .spacecp-page 命名空间下，避免全局污染
+ *
+ * 【引入顺序】
+ * 旧CSS → modern-ui.css → modern-ui-spacecp.css
+ *
+ * 【作者】AI Assistant
+ * 【日期】2026-01-31
+ */
+
+/* ============================================
+   页面根容器 - #modern-index-shell
+   全站统一的现代化外壳容器
+   ============================================ */
+#modern-index-shell {
+    min-height: 100vh;
+    background-color: #f6f8fa;
+    /* 使用系统字体栈，确保最佳渲染效果 */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* ============================================
+   页面标识属性
+   用于页面级样式作用域识别
+   ============================================ */
+#modern-index-shell[data-page="spacecp"] {
+    /* 页面特定变量可在此定义 */
+    --spacecp-primary: #ff6f3d;
+    --spacecp-primary-hover: #e55a2b;
+    --spacecp-bg: #f6f8fa;
+    --spacecp-card-bg: #ffffff;
+    --spacecp-border: #e1e4e8;
+    --spacecp-text: #24292e;
+    --spacecp-text-secondary: #586069;
+    --spacecp-radius: 12px;
+    --spacecp-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    --spacecp-shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+/* ============================================
+   面包屑导航区域改造
+   ============================================ */
+#modern-index-shell[data-page="spacecp"] .breadcrumb-area {
+    padding: 16px 0;
+    margin-bottom: 8px;
+}
+
+#modern-index-shell[data-page="spacecp"] .breadcrumb-area a {
+    color: #586069;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+#modern-index-shell[data-page="spacecp"] .breadcrumb-area a:hover {
+    color: #ff6f3d;
+}
+
+#modern-index-shell[data-page="spacecp"] .breadcrumb-area .glyphicon-home {
+    font-size: 14px;
+}
+
+#modern-index-shell[data-page="spacecp"] .breadcrumb-area > span {
+    color: #24292e;
+    font-size: 14px;
+}
+
+/* ============================================
+   主内容区域布局
+   ============================================ */
+#modern-index-shell[data-page="spacecp"] .main-content-wrapper {
+    padding: 0 0 40px 0;
+}
+
+/* ============================================
+   左侧侧边栏导航卡片
+   ============================================ */
+#modern-index-shell[data-page="spacecp"] .sidebar-card {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e1e4e8;
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
+}
+
+#modern-index-shell[data-page="spacecp"] .sidebar-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+/* 侧边栏标题 */
+#modern-index-shell[data-page="spacecp"] .sidebar-card .sidebar-header {
+    padding: 16px 20px;
+    border-bottom: 1px solid #e1e4e8;
+    background: linear-gradient(135deg, #fafbfc 0%, #f6f8fa 100%);
+}
+
+#modern-index-shell[data-page="spacecp"] .sidebar-card .sidebar-header h4 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #24292e;
+}
+
+/* 侧边栏导航项 */
+#modern-index-shell[data-page="spacecp"] .sidebar-card .nav-item {
+    padding: 0;
+    border-left: 3px solid transparent;
+    transition: all 0.25s ease;
+}
+
+#modern-index-shell[data-page="spacecp"] .sidebar-card .nav-item h5 {
+    margin: 0;
+}
+
+#modern-index-shell[data-page="spacecp"] .sidebar-card .nav-item a {
+    display: block;
+    padding: 14px 20px;
+    color: #586069;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+/* 悬停状态 */
+#modern-index-shell[data-page="spacecp"] .sidebar-card .nav-item:hover {
+    border-left-color: #ff6f3d;
+    background-color: #fff5f2;
+}
+
+#modern-index-shell[data-page="spacecp"] .sidebar-card .nav-item:hover a {
+    color: #ff6f3d;
+}
+
+/* 激活状态 */
+#modern-index-shell[data-page="spacecp"] .sidebar-card .nav-item.active {
+    border-left-color: #ff6f3d;
+    background-color: #fff5f2;
+}
+
+#modern-index-shell[data-page="spacecp"] .sidebar-card .nav-item.active a {
+    color: #ff6f3d;
+    font-weight: 600;
+}
+
+/* ============================================
+   右侧内容区域卡片
+   ============================================ */
+#modern-index-shell[data-page="spacecp"] .content-card {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e1e4e8;
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
+}
+
+#modern-index-shell[data-page="spacecp"] .content-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+/* ============================================
+   Tab 导航样式改造
+   ============================================ */
+#modern-index-shell[data-page="spacecp"] .content-card .layui-tab {
+    margin: 0;
+}
+
+#modern-index-shell[data-page="spacecp"] .content-card .layui-tab-title {
+    border-bottom: 1px solid #e1e4e8;
+    background: linear-gradient(135deg, #fafbfc 0%, #f6f8fa 100%);
+    padding: 0 8px;
+}
+
+#modern-index-shell[data-page="spacecp"] .content-card .layui-tab-title li {
+    padding: 14px 20px;
+    font-size: 14px;
+    color: #586069;
+    transition: all 0.2s ease;
+    border-radius: 6px 6px 0 0;
+    margin-right: 4px;
+}
+
+#modern-index-shell[data-page="spacecp"] .content-card .layui-tab-title li:hover {
+    color: #ff6f3d;
+    background-color: rgba(255, 111, 61, 0.08);
+}
+
+#modern-index-shell[data-page="spacecp"] .content-card .layui-tab-title li.layui-this {
+    color: #ff6f3d;
+    font-weight: 600;
+    background-color: #ffffff;
+    border-bottom: 2px solid #ff6f3d;
+}
+
+#modern-index-shell[data-page="spacecp"] .content-card .layui-tab-title li.layui-this:after {
+    border: none;
+}
+
+/* Tab 内容区域 */
+#modern-index-shell[data-page="spacecp"] .content-card .layui-tab-content {
+    padding: 24px;
+}
+
+/* ============================================
+   头像上传区域样式
+   ============================================ */
+#modern-index-shell[data-page="spacecp"] .avatar-section {
+    padding: 24px;
+}
+
+#modern-index-shell[data-page="spacecp"] .avatar-section h4 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #24292e;
+    margin-bottom: 12px;
+}
+
+#modern-index-shell[data-page="spacecp"] .avatar-section h5 {
+    font-size: 14px;
+    color: #586069;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+#modern-index-shell[data-page="spacecp"] .avatar-section h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #24292e;
+    margin: 24px 0 16px 0;
+}
+
+/* 当前头像展示 */
+#modern-index-shell[data-page="spacecp"] .current-avatar {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #e1e4e8;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+#modern-index-shell[data-page="spacecp"] .current-avatar:hover {
+    border-color: #ff6f3d;
+    box-shadow: 0 4px 16px rgba(255, 111, 61, 0.2);
+}
+
+/* 上传区域 */
+#modern-index-shell[data-page="spacecp"] .layui-upload-drag {
+    border: 2px dashed #d1d5da;
+    border-radius: 12px;
+    background: #fafbfc;
+    padding: 40px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+#modern-index-shell[data-page="spacecp"] .layui-upload-drag:hover {
+    border-color: #ff6f3d;
+    background: #fff5f2;
+}
+
+#modern-index-shell[data-page="spacecp"] .layui-upload-drag .layui-icon {
+    font-size: 48px;
+    color: #959da5;
+    margin-bottom: 16px;
+}
+
+#modern-index-shell[data-page="spacecp"] .layui-upload-drag p {
+    color: #586069;
+    font-size: 14px;
+}
+
+/* ============================================
+   表单样式改造
+   ============================================ */
+#modern-index-shell[data-page="spacecp"] .layui-form {
+    padding: 8px 0;
+}
+
+#modern-index-shell[data-page="spacecp"] .layui-form-item {
+    margin-bottom: 20px;
+}
+
+#modern-index-shell[data-page="spacecp"] .layui-form-label {
+    font-weight: 500;
+    color: #24292e;
+    padding: 9px 15px;
+    width: 100px;
+}
+
+#modern-index-shell[data-page="spacecp"] .layui-input {
+    border: 1px solid #d1d5da;
+    border-radius: 8px;
+    padding: 8px 12px;
+    transition: all 0.2s ease;
+    font-size: 14px;
+}
+
+#modern-index-shell[data-page="spacecp"] .layui-input:focus {
+    border-color: #ff6f3d;
+    box-shadow: 0 0 0 3px rgba(255, 111, 61, 0.15);
+    outline: none;
+}
+
+/* 单选按钮样式 */
+#modern-index-shell[data-page="spacecp"] .layui-form-radio > i {
+    color: #d1d5da;
+}
+
+#modern-index-shell[data-page="spacecp"] .layui-form-radio:hover > i {
+    color: #ff6f3d;
+}
+
+#modern-index-shell[data-page="spacecp"] .layui-form-radioed > i {
+    color: #ff6f3d;
+}
+
+/* 下拉选择器 */
+#modern-index-shell[data-page="spacecp"] .layui-form-select dl {
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    border: 1px solid #e1e4e8;
+}
+
+#modern-index-shell[data-page="spacecp"] .layui-form-select dl dd:hover {
+    background-color: #fff5f2;
+    color: #ff6f3d;
+}
+
+#modern-index-shell[data-page="spacecp"] .layui-form-select dl dd.layui-this {
+    background-color: #ff6f3d;
+    color: #ffffff;
+}
+
+/* ============================================
+   按钮样式改造
+   ============================================ */
+#modern-index-shell[data-page="spacecp"] .layui-btn {
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border: none;
+}
+
+#modern-index-shell[data-page="spacecp"] .layui-btn-primary {
+    background: linear-gradient(135deg, #ff6f3d 0%, #e55a2b 100%);
+    color: #ffffff;
+}
+
+#modern-index-shell[data-page="spacecp"] .layui-btn-primary:hover {
+    background: linear-gradient(135deg, #e55a2b 0%, #d14d20 100%);
+    box-shadow: 0 4px 12px rgba(255, 111, 61, 0.3);
+    transform: translateY(-1px);
+}
+
+/* 发送验证码按钮 */
+#modern-index-shell[data-page="spacecp"] #sendCode-1,
+#modern-index-shell[data-page="spacecp"] #sendCode-2 {
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-size: 13px;
+    transition: all 0.2s ease;
+}
+
+/* ============================================
+   密码安全区域样式
+   ============================================ */
+#modern-index-shell[data-page="spacecp"] .password-notice {
+    padding: 12px 16px;
+    background: #fff8e6;
+    border-left: 4px solid #f9a825;
+    border-radius: 0 8px 8px 0;
+    margin-bottom: 20px;
+    color: #856404;
+    font-size: 14px;
+}
+
+/* ============================================
+   我的关注区域样式
+   ============================================ */
+#modern-index-shell[data-page="spacecp"] .care-section-header {
+    padding: 16px 20px;
+    border-bottom: 1px solid #e1e4e8;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#modern-index-shell[data-page="spacecp"] .care-section-header h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #24292e;
+}
+
+#modern-index-shell[data-page="spacecp"] .care-section-header h4 {
+    margin: 0;
+    font-size: 14px;
+    color: #586069;
+    font-weight: normal;
+}
+
+/* 关注列表 */
+#modern-index-shell[data-page="spacecp"] .care-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#modern-index-shell[data-page="spacecp"] .care-list li {
+    padding: 16px 20px;
+    border-bottom: 1px solid #f0f2f5;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background-color 0.2s ease;
+}
+
+#modern-index-shell[data-page="spacecp"] .care-list li:hover {
+    background-color: #fafbfc;
+}
+
+#modern-index-shell[data-page="spacecp"] .care-list li:last-child {
+    border-bottom: none;
+}
+
+#modern-index-shell[data-page="spacecp"] .care-list li a {
+    display: flex;
+    align-items: center;
+    color: #24292e;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+#modern-index-shell[data-page="spacecp"] .care-list li a:hover {
+    color: #ff6f3d;
+}
+
+#modern-index-shell[data-page="spacecp"] .care-list li img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    margin-right: 12px;
+    border: 2px solid #e1e4e8;
+    transition: all 0.2s ease;
+}
+
+#modern-index-shell[data-page="spacecp"] .care-list li a:hover img {
+    border-color: #ff6f3d;
+}
+
+/* 取消关注按钮 */
+#modern-index-shell[data-page="spacecp"] .care-list li .btn-default {
+    border: 1px solid #d1d5da;
+    background: #ffffff;
+    color: #586069;
+    border-radius: 6px;
+    padding: 6px 14px;
+    font-size: 13px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+#modern-index-shell[data-page="spacecp"] .care-list li .btn-default:hover {
+    color: #ca0c16;
+    background: #fde3e4;
+    border-color: #ca0c16;
+}
+
+/* ============================================
+   富文本编辑器样式
+   ============================================ */
+#modern-index-shell[data-page="spacecp"] .layui-layedit {
+    border-radius: 8px;
+    border: 1px solid #d1d5da;
+    overflow: hidden;
+}
+
+#modern-index-shell[data-page="spacecp"] .layui-layedit-tool {
+    background: #fafbfc;
+    border-bottom: 1px solid #e1e4e8;
+    padding: 8px;
+}
+
+#modern-index-shell[data-page="spacecp"] .layui-layedit-tool i {
+    color: #586069;
+    transition: color 0.2s ease;
+}
+
+#modern-index-shell[data-page="spacecp"] .layui-layedit-tool i:hover {
+    color: #ff6f3d;
+}
+
+/* ============================================
+   页脚样式
+   ============================================ */
+#modern-index-shell[data-page="spacecp"] footer {
+    margin-top: 60px;
+    padding: 30px 0;
+    border-top: 1px solid #e1e4e8;
+    background: #ffffff;
+}
+
+#modern-index-shell[data-page="spacecp"] footer p {
+    text-align: center;
+    color: #586069;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+/* ============================================
+   响应式适配
+   ============================================ */
+@media (max-width: 768px) {
+    #modern-index-shell[data-page="spacecp"] .sidebar-card {
+        margin-bottom: 20px;
+    }
+
+    #modern-index-shell[data-page="spacecp"] .content-card {
+        margin-left: 0 !important;
+    }
+
+    #modern-index-shell[data-page="spacecp"] .layui-form-label {
+        width: 80px;
+        padding: 9px 10px;
+    }
+
+    #modern-index-shell[data-page="spacecp"] .layui-input {
+        width: 100% !important;
+    }
+}
+
+/* ============================================
+   动画效果
+   ============================================ */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#modern-index-shell[data-page="spacecp"] .content-card {
+    animation: fadeIn 0.4s ease-out;
+}
+
+/* ============================================
+   错误提示样式
+   ============================================ */
+#modern-index-shell[data-page="spacecp"] #errorRes,
+#modern-index-shell[data-page="spacecp"] #errorRes-2 {
+    display: inline-block;
+    padding: 8px 12px;
+    background: #ffeaea;
+    border-radius: 6px;
+    border-left: 3px solid #ca0c16;
+}
+
+/* ============================================
+   用户信息展示样式
+   ============================================ */
+#modern-index-shell[data-page="spacecp"] .user-info-display {
+    line-height: 38px;
+    color: #24292e;
+    font-weight: 500;
+    padding: 0 12px;
+    background: #f6f8fa;
+    border-radius: 6px;
+    display: inline-block;
+    min-width: 120px;
+}
