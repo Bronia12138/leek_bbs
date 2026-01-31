@@ -56,16 +56,16 @@
     </select>
 
     <!--获取今日与昨日发帖数量,DATE_SUB昨天日期-->
-    <select id="selectPostCountByDate" resultMap="countMap">
-        #         select count(reply_time) post_count
-#         from post_details where reply_time > DATE_SUB(curdate(),INTERVAL 1 DAY)
-#         group by Date(reply_time)
-        select count(publish_time) post_count
-        from post
-        where publish_time > DATE_SUB(curdate(), INTERVAL 1 DAY)
-          and post_status not in (0, 6)
-        group by Date(publish_time)
+    <select id="selectPostCountByDate" resultType="map">
+        SELECT
+            DATE(publish_time) AS post_date,
+            COUNT(*) AS post_count
+        FROM post
+        WHERE publish_time >= DATE_SUB(CURDATE(), INTERVAL 1 DAY)
+          AND post_status NOT IN (0, 6)
+        GROUP BY DATE(publish_time)
     </select>
+
     <!--论坛总贴数-->
     <select id="selectPostCount" resultType="int">
         select count(*)

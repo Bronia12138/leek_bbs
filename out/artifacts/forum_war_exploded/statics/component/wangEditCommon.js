@@ -33,8 +33,19 @@ function createEdit(str){
         'Accept': 'text/x-json'
 }*/
     // 将图片大小限制为 3M
-    editor.customConfig.uploadImgMaxSize = 3 * 1024 * 1024 ; //默认为5M
+    editor.customConfig.uploadImgMaxSize = 2 * 1024 * 1024 ; //默认为2M
     editor.customConfig.uploadImgShowBase64 = false;  // 使用 base64 保存图片
+    // editor.config.uploadImgMaxLength = 5;
+    // editor.config.uploadImgTimeout = 5000;
+    // editor.config.beforeUploadImg = function (files) {
+    //     for (let file of files) {
+    //         if (file.size > 2 * 1024 * 1024) {
+    //             ui.alert("图片不能超过 2MB");
+    //             return false;
+    //         }
+    //     }
+    //     return true;
+    // };
     // editor.customConfig.customAlert = function (info) { //自己设置alert错误信息
     //   // info 是需要提示的内容
     //   alert(‘自定义提示：‘ + ‘图片上传失败，请重新上传‘)
@@ -347,8 +358,19 @@ function createEdit2(str){
         'Accept': 'text/x-json'
 }*/
     // 将图片大小限制为 3M
-    editor2.customConfig.uploadImgMaxSize = 3 * 1024 * 1024 ; //默认为5M
+    editor2.customConfig.uploadImgMaxSize = 2 * 1024 * 1024 ; //默认为5M
     editor2.customConfig.uploadImgShowBase64 = false;  // 使用 base64 保存图片
+    // editor2.config.uploadImgMaxLength = 5;
+    // editor2.config.uploadImgTimeout = 5000;
+    // editor2.config.beforeUploadImg = function (files) {
+    //     for (let file of files) {
+    //         if (file.size > 2 * 1024 * 1024) {
+    //             ui.alert("图片不能超过 2MB");
+    //             return false;
+    //         }
+    //     }
+    //     return true;
+    // };
     // editor.customConfig.customAlert = function (info) { //自己设置alert错误信息
     //   // info 是需要提示的内容
     //   alert(‘自定义提示：‘ + ‘图片上传失败，请重新上传‘)

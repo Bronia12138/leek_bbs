@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -83,38 +84,30 @@ public class UserSignController {
     @RequestMapping("/getCountMapData")
     @ResponseBody
     public Map<String, Object> getCountMapData() {
-        Map<String, Object> map = new HashMap<>();
 
-        // 初始化
-        int todayPostCount = 0;
-        int yesterdayPostCount = 0;
+        Map<String, Object> map = new HashMap<>();
+        map.put("todayPostCount", 0);
+        map.put("yesterdayPostCount", 0);
 
         List<Map> list = userSignService.selectPostCountByDate();
 
-        if (list.size() == 1) {
-            // 只有一条数据，需要判断是今天还是昨天
-            Object count = list.get(0).get("post_count");
-            // 这里需要修改SQL返回日期才能准确判断
-            // 暂时假设为今天（统计最近一天的帖子）
-            todayPostCount = ((Number) count).intValue();
-        } else if (list.size() == 2) {
-            // 有两条数据，需要确保顺序
-            // 修改SQL，添加ORDER BY确保昨天在前今天在后
-            yesterdayPostCount = ((Number) list.get(0).get("post_count")).intValue();
-            todayPostCount = ((Number) list.get(1).get("post_count")).intValue();
+        LocalDate today = LocalDate.now();
+        LocalDate yesterday = today.minusDays(1);
+
+        for (Map<String, Object> row : list) {
+            LocalDate postDate = LocalDate.parse(row.get("post_date").toString());
+            int count = ((Number) row.get("post_count")).intValue();
+
+            if (postDate.equals(today)) {
+                map.put("todayPostCount", count);
+            } else if (postDate.equals(yesterday)) {
+                map.put("yesterdayPostCount", count);
+            }
         }
 
-        map.put("todayPostCount", todayPostCount);
-        map.put("yesterdayPostCount", yesterdayPostCount);
-
-        // 其他统计数据
-        int postCount = userSignService.selectPostCount();
-        int userCount = userSignService.selectUserCount();
-        int todaySignCount = userSignService.selectTodaySignCount();
-
-        map.put("postCount", postCount);
-        map.put("userCount", userCount);
-        map.put("todaySignCount", todaySignCount);
+        map.put("postCount", userSignService.selectPostCount());
+        map.put("userCount", userSignService.selectUserCount());
+        map.put("todaySignCount", userSignService.selectTodaySignCount());
 
         return map;
     }

@@ -2,486 +2,271 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>帖子详情 - 就业交流论坛</title> <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
     <link rel="icon" href="/leek_bbs/statics/images/favicon.ico" >
     <link rel="stylesheet" href="/leek_bbs/statics/yu-ui/js_css/yu.css">
     <link rel="stylesheet" href="/leek_bbs/statics/layui/css/layui.css">
     <link rel="stylesheet" href="/leek_bbs/statics/bootstrap-3.3.7/css/bootstrap.min.css">
-    <!-- vue-element插件样式 -->
     <link rel="stylesheet" href="/leek_bbs/statics/vue/element-ui/index.css">
-    <!--头部导航样式-->
     <link rel="stylesheet" href="/leek_bbs/statics/css/head.css">
-    <!--    引入新css样式！该样式为 更改后的全部样式所存的地方，必须要引入！-->
+
     <link rel="stylesheet" href="/leek_bbs/statics/css/modern-ui.css">
+    <link rel="stylesheet" href="/leek_bbs/statics/css/modern-ui-post.css"> <style>
+    /* 保留部分必要的旧样式，用于兼容旧的 JS 逻辑或弹窗 */
+    [v-cloak] { display: none; }
 
-    <style>
-       .dropdown1{
-            position: relative;
-            display: inline-block;
-            padding-top: 20px;
-            padding-left: 20px;
-        }
-       .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #ffffff;
-            top:0px;
-            right:0px;
-            left:0px;
-            padding-left:20px;
-            padding-top: 10px;
-            min-width: 330px;
-            min-height:150px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
-            z-index: 1;
-        }
-       .dropdown1:hover .dropdown-content {display: block;}
-       .discard-posit{
-            position: sticky;
-            top: 4px;
-       }
-      /* .discard-posit:hover{
-           position: static;
-       }*/
-       .box{
-           position:fixed;
-           right:30px;
-           bottom: 60px;
-           padding-top:20px;
-           height:53px;
-           width: 50px;
-           text-align:center;
-           border: 1px solid #e5e5e5;
-           border-radius: 20%;
-           background-color: #fff;
-           overflow: hidden;
-       }
-       .box:hover:before{
-           top:50%;
-       }
-       .box:hover{
-           background-color: #ff6f3d;
-       }
-       .box:hover .box-in{
-           visibility: hidden;
-       }
-       .box:before{
-           position: absolute;
-           top: -35%;
-           left: 50%;
-           transform: translate(-50%,-50%);
-           content:'回到顶部';
-           width: 40px;
-           color:#fff;
-           font-weight:bold;
-           opacity: .8;
-
-       }
-       .box-in{
-           visibility: visible;
-           display:inline-block;
-           height:20px;
-           width: 20px;
-           border: 3px solid black;
-           border-color: #887777 transparent transparent #887777;
-           transform:rotate(45deg);
-       }
-       .pagination a {
-           color: black;
-           float: left;
-           padding: 8px 16px;
-           text-decoration: none;
-           transition: background-color .3s;
-       }
-       .pagination a.active {
-           background-color: dodgerblue;
-           color: white;
-       }
-       .container .col-md-10{
-           margin-left: 195px;
-           height: auto;
-           min-height: 410px;
-           background-color: #FFFFFF;
-       }
-       /*vue插件分页部分*/
-       .el-pagination.is-background .btn-next, .el-pagination.is-background .btn-prev{
-           width: 85px;
-       }
-       .el-pagination.is-background .btn-next, .el-pagination.is-background .btn-prev, .el-pagination.is-background .el-pager li {
-           background-color: #fff;
-       }
-
-       .pagination a:hover:not(.active) {background-color: #ddd;}
-        .p-pt{
-            margin-top: 240px;
-            padding-top: 20px;
-            padding-bottom: 10px;
-        }
-        .p-pt .row .btn > i{
-            font-size:14px;
-            color: #ff6f3d;
-        }
-        .p-left-nature{
-            margin:20px auto;
-            padding: 8px 0px;
-            width:98%;
-            border-radius:4px;
-            background-color: #F1F1F1;
-        }
-        .p-left-nature .col-sm-4{
-            padding:2px;
-            text-align: center;
-            border-right:1px solid #e3e3e3;;
-        }
-       .p-left-nature .col-sm-4 span{
-           font-size: 12px;
-       }
-       /*聊天消息窗口部分*/
-       .layui-layedit{
-           border-style: solid solid none;
-       }
-       #layer-3 .m-btn .layui-btn{
-           margin-left: 6px;
-       }
-       .m-btn{
-           margin-left: 30px;
-       }
-       .m-btn > button{
-           font-size: 14px;
-           padding: 0 20px;
-           background-color: #5FB878;
-           color: #fff;
-           border-radius: 3px;
-       }
-       .m-layer-title {
-           height: 80px !important;
-           background: url(/leek_bbs/statics/images/bg.jpg) center no-repeat;
-       }
-       img.img-size{
-           width: 60px;
-           height: 60px
-       }
-       #themeEditor > div:last-child{
-           height: 130px !important;
-       }
-       #citeReplyEditor > div:last-child{
-           height: 144px !important;
-       }
-       #post-text .citeReply{
-           width: 96%;
-           overflow: hidden;
-           text-overflow: ellipsis;
-           display: -webkit-box;
-           -webkit-line-clamp: 4;
-           -webkit-box-orient: vertical;
-       }
-         .text-hidden{
-            margin-left: 15px;
-            width: 96%;
-            /*超过部分隐藏*/
-            overflow: hidden;
-            /*超过部分用...代替*/
-            text-overflow: ellipsis;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-        }
-        .citeReply{
-            position: relative;
-            margin-left: 10px;
-            padding: 15px;
-            width:95%;
-            background-color: #e5e5e5;
-        }
-        #exist a:hover{
-            color: #ff6f3d;
-        }
-    </style>
+    /* 修复回到顶部按钮位置 */
+    .box{
+        position:fixed; right:30px; bottom: 80px; z-index: 999;
+        border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    /* 编辑器高度微调 */
+    #themeEditor > div:last-child { min-height: 150px; }
+</style>
 </head>
 <body>
-<div class="container-fluid">
-    <!-- 导航开始 -->
+
+<div id="modern-index-shell" data-page="post-detail">
+
     <div id="hmc">
         <head_menu_comp :is_login="isLoginShow" ref="fo"></head_menu_comp>
     </div>
-    <!-- 导航结束 -->
+
     <div class="container" id="postPage" v-cloak>
         <div v-if="PostsInfo!=''">
+
             <div class="row">
-                <span style="opacity: .7;">
-                    <a href="/leek_bbs/skipPage/index"><span class="glyphicon glyphicon-home"></span></a>&nbsp;>&nbsp;
-                    <a href="/leek_bbs/skipPage/index">论坛</a>&nbsp;>&nbsp;
-                    <a href="/leek_bbs/skipPage/index">{{plateObject.plate_vest}}</a>&nbsp;>&nbsp;
-                    <a :href="'/leek_bbs/skipPage/model?pl_type='+plateObject.id">{{plateObject.plate_name}}</a>&nbsp;>&nbsp;
-                    <span>{{themeName}}</span>
-                </span>
-                <!--<span style="float: right;"><a href="javascript:;">我的收藏</a></span>-->
+                <nav class="modern-breadcrumb">
+                    <a href="/leek_bbs/skipPage/index"><span class="glyphicon glyphicon-home"></span> 首页</a>
+                    <span class="separator">/</span>
+                    <a href="/leek_bbs/skipPage/index">论坛</a>
+                    <span class="separator">/</span>
+                    <a href="/leek_bbs/skipPage/index">{{plateObject.plate_vest}}</a>
+                    <span class="separator">/</span>
+                    <a :href="'/leek_bbs/skipPage/model?pl_type='+plateObject.id">{{plateObject.plate_name}}</a>
+                    <span class="separator">/</span>
+                    <span class="current-node">正文</span>
+                </nav>
             </div>
-            <!--顶部分页栏-->
-            <div class="row" >
-                <div class="row" style="margin:20px -6px;">
-                    <div>
-                        <el-pagination
-                                background
-                                @current-change="handleCurrentChange"
-                                :current-page.sync="currentPage"
-                                :page-size="pageSize"
-                                layout="prev, pager, next, jumper"
-                                prev-text="上一页"
-                                next-text="下一页"
-                                :total="total">
-                        </el-pagination>
-                    </div>
-                    <div style="float: right; margin-top: -32px;">
-                        <ul class="list-inline">
-                            <li><a href="javascript:;" @click="changCollect()" style="color: #333;">收藏帖子</a></li>
-                            <li><button class="btn btn-sm" style="color:#fff;background-color: #3399ea;" @click="bottomReply()">回复</button></li>
-                        </ul>
-                    </div>
+
+            <div class="row modern-top-bar">
+                <div class="top-title-area">
+                    <h2 class="top-post-title" v-if="PostsInfo">{{PostsInfo.title}}</h2>
+                </div>
+                <div class="top-action-area">
+                    <button class="action-icon-btn btn-reply" @click="bottomReply()" title="回复本帖">
+                        <i class="layui-icon layui-icon-edit"></i>
+                    </button>
+                    <button class="action-icon-btn btn-collect" @click="changCollect()" title="收藏">
+                        <i class="layui-icon layui-icon-star"></i>
+                    </button>
                 </div>
             </div>
-            <!--标题栏-->
-            <div class="row" style="border:1px solid #e5e5e5;background-color: #fafafa;">
-                <h4 style="margin-left: 15px;padding: 8px;font-size:17px;opacity: .9;">
-                    <span>{{PostsInfo.title}}</span>
-                </h4>
-            </div>
-            <!--主题内容-->
-            <div v-if="isShowTheme" class="row" style="position: relative;margin-top: 8px;">
-                <!--左边发帖人-->
-                <div class="col-md-2" style="position: absolute; height: 100%; background-color: #fafafa;">
+
+            <div v-if="isShowTheme" class="row post-card-item">
+
+
+                <div class="col-md-12">
+                    <h1 class="post-title-h4">
+                        <span v-if="PostsInfo.post_status==2" class="label label-danger">置顶</span>
+                        <span v-else-if="PostsInfo.post_status==4" class="label label-warning">精华</span>
+                        {{PostsInfo.title}}
+                    </h1>
+                </div>
+
+                <div class="col-md-2 user-side-panel">
                     <div class="discard-posit">
-                        <div class="dropdown1" @mouseenter="queryUserStatus(PostsInfo.user_id)" >
-                            <a :href="'/leek_bbs/skipPage/personal?id='+PostsInfo.user_id"><img :src="'/leek_bbs/'+PostsInfo.picture" class="img-circle" width="100" height="100" ></a>
-                            <!--悬浮框-->
-                            <div class="dropdown-content">
-                                <a :href="'/leek_bbs/skipPage/personal?id='+PostsInfo.user_id" target="_blank"><img :src="'/leek_bbs/'+PostsInfo.picture" class="img-circle" width="100" height="100" ></a>
-                                <ul class="list-inline" style="padding-left:25px;padding-top:10px;">
-                                    <li><span>用户状态:</span>&emsp;
-                                        <span v-if="online_status" style="color: red;">在线</span>
-                                        <span v-else style="color: black;">【离线】</span>
-                                    </li>
-                                </ul>
+                        <div class="user-avatar-box" @mouseenter="queryUserStatus(PostsInfo.user_id)">
+                            <a :href="'/leek_bbs/skipPage/personal?id='+PostsInfo.user_id">
+                                <img :src="'/leek_bbs/'+PostsInfo.picture" class="img-circle" width="80" height="80">
+                            </a>
+                            <div v-if="online_status" class="badge" style="background: #52c41a; margin-top:5px;">在线</div>
+                            <div v-else class="badge" style="background: #d9d9d9; margin-top:5px;">离线</div>
+                        </div>
+
+                        <a href="javascript:;" class="user-name-link">{{PostsInfo.post_author}}</a>
+
+                        <div class="user-stats-grid">
+                            <div class="stat-item"><span>{{PostsInfo.themeCount}}</span><br><span>主题</span></div>
+                            <div class="stat-item"><span>{{PostsInfo.postsCount}}</span><br><span>帖子</span></div>
+                            <div class="stat-item"><span>{{PostsInfo.total_integral}}</span><br><span>积分</span></div>
+                        </div>
+
+                        <div class="user-badges">
+                            <span class="label label-info">{{PostsInfo.grade.name}}</span>
+                            <div style="margin-top: 5px;">
+                                <img :src="'/leek_bbs/statics/images'+PostsInfo.grade.img" alt="等级" title="等级">
                             </div>
                         </div>
-                        <div style="padding-left:48px; margin-top: 10px ">
-                            <a href="javascript:;" style="color: red">{{PostsInfo.post_author}}</a>
-                        </div>
-                        <div class="row p-left-nature">
-                            <div class="col-sm-4" ><span>{{PostsInfo.themeCount}}</span><br><span>主题</span></div>
-                            <div class="col-sm-4" ><span>{{PostsInfo.postsCount}}</span><br><span>帖子</span></div>
-                            <div class="col-sm-4" style="border: none;"><span>{{PostsInfo.total_integral}}</span><br><span>积分</span></div>
-                        </div>
-                        <div class="row p-left-nature" style="background-color: transparent;">
-                            <h5>用户组: &nbsp;{{PostsInfo.grade.name}}</h5>
-                            <h5><span>等级: &nbsp;</span><img style="vertical-align:text-top;" :src="'/leek_bbs/statics/images'+PostsInfo.grade.img" alt="等级" title="等级"></h5>
-                        </div>
-                        <div class="row" style="margin: 0px auto;padding-bottom: 30px;" v-if="isOneself(PostsInfo.user_id)"><!---->
-                            <a class="btn btn-default btn-sm" @click="addUserAttention(PostsInfo.user_id,PostsInfo.picture)" style="width:76px;color: #fff;background-color: #CA0C16;" >关注</a>
-                            <a class="btn btn-default btn-sm" @click="openWindow1(PostsInfo)" style="width:76px;color: #fff;background-color: #3399EA;">发送消息</a>
+
+                        <div class="user-actions" v-if="isOneself(PostsInfo.user_id)">
+                            <button class="btn btn-default btn-xs btn-block" @click="addUserAttention(PostsInfo.user_id,PostsInfo.picture)">
+                                + 关注
+                            </button>
+                            <button class="btn btn-primary btn-xs btn-block" @click="openWindow1(PostsInfo)">
+                                发消息
+                            </button>
                         </div>
                     </div>
                 </div>
-                <!--右边内容-->
-                <div class="col-md-10" >
-                    <!--推荐帖子-->
-                    <div style="position: relative;">
-                        <img v-if="PostsInfo.post_status==2" src="/leek_bbs/statics/images/status/zhiding.gif" alt="置顶" style="position: absolute;top:-54px;right: 178px;">
-                        <img v-else-if="PostsInfo.post_status==3" src="/leek_bbs/statics/images/status/tuijian.gif" alt="推荐" style="position: absolute;top:-54px;right: 178px;">
-                        <img v-else-if="PostsInfo.post_status==4" src="/leek_bbs/statics/images/status/jinghua.gif" alt="精华" style="position: absolute;top:-54px;right: 178px;">
-                        <!--<img v-else-if="PostInfo.post_status==5" src="/leek_bbs/statics/images/status/tuijian.gif" alt="推荐" style="position: absolute;top:-54px;right: 178px;">-->
-                    </div>
-                    <div class="row" style="margin:10px;border-bottom: 1px solid #e5e5e5;">
-                        <span style="line-height: 38px;">发表于 {{PostsInfo.publish_time|format}}&nbsp;&nbsp;|&nbsp;
-                            <a v-show="readPattern" href="javascript:;" @click="handleCurrentChange(PostsInfo.user_id,1)" style="opacity: .7;">只看该作者</a>
-                            <a v-show="!readPattern" href="javascript:;" @click="handleCurrentChange()" style="opacity: .7;">显示全部楼层</a>
+
+                <div class="col-md-10 content-side-panel">
+                    <div class="post-header-meta">
+                        <span>
+                            发表于 {{PostsInfo.publish_time|format}} &nbsp;|&nbsp;
+                            <a v-show="readPattern" href="javascript:;" @click="handleCurrentChange(PostsInfo.user_id,1)">只看楼主</a>
+                            <a v-show="!readPattern" href="javascript:;" @click="handleCurrentChange()">查看全部</a>
                         </span>
-                        <span style="float: right;margin-right: 10px;margin-bottom: 10px;">
-                            <a class="btn btn-default btn-sm" style="color:#fff;background-color: #f80;">楼主</a>
-                        </span>
+                        <span class="label label-warning">楼主</span>
                     </div>
-                    <div style="margin: 18px 10px;">
+
+                    <div class="post-content-body">
                         <div v-html="PostsInfo.content"></div>
                     </div>
-                    <!--底部对帖子操作部分-->
-                    <div class="p-pt">
-                        <div class="row" style="margin: 10px;padding-bottom: 15px;border-bottom: 1px solid #e5e5e5;">
-                            <a class="btn btn-default btn-sm" @click="changCollect()" title="收藏">
-                                <i class="layui-icon layui-icon-star-fill"></i>
-                                <span>收藏&nbsp;{{PostsInfo.post_collect}}</span>
+
+                    <div class="post-footer-actions">
+                        <div class="action-btn-group">
+                            <a class="btn" @click="postsShare()" title="分享">
+                                <i class="layui-icon layui-icon-share"></i> {{PostsInfo.share_count}}
                             </a>
-<!--                            <a class="btn btn-default btn-sm" @click="changPostData(1)" title="评分表立场">-->
-<!--                                <i class="layui-icon layui-icon-praise"></i>-->
-<!--                                <span>评分&nbsp;{{PostsInfo.post_grade}}</span>-->
-<!--                            </a>-->
-                            <a class="btn btn-default btn-sm" @click="postsShare()" title="分享推精华">
-                                <i class="layui-icon layui-icon-share"></i>
-                                <span>分享&nbsp;{{PostsInfo.share_count}}</span>
+                            <a class="btn" @click="changPostData(2)" title="支持">
+                                <i class="glyphicon glyphicon-thumbs-up"></i> {{PostsInfo.post_top}}
                             </a>
-                            <a class="btn btn-default btn-sm" @click="changPostData(2)" style="width: 81.2px;height: 32.8px;" title="顶">
-                                <i class="glyphicon glyphicon-arrow-up" style="margin-top: 2px;"></i>
-                                <span>顶&nbsp;{{PostsInfo.post_top}}</span>
+                            <a class="btn" @click="changPostData(3)" title="反对">
+                                <i class="glyphicon glyphicon-thumbs-down"></i> {{PostsInfo.post_tread}}
                             </a>
-                            <a class="btn btn-default btn-sm" @click="changPostData(3)" style="width: 81.2px;height: 32.8px;" title="踩">
-                                <i class="glyphicon glyphicon-arrow-down" style="margin-top: 2px;color: rgb(166, 162, 162);"></i>
-                                <span>踩&nbsp;{{PostsInfo.post_tread}}</span>
-                            </a>
-                        </div>
-                        <div class="row" style="margin: 10px;">
-                            <span><a href="javascript:;" @click="citePostReply()"><img src="/leek_bbs/statics/images/folder_new.gif" style="vertical-align: sub;">&nbsp;回复</a></span>
-                            <span style="float: right;"><a href="javascript:;" @click="reportPosts(PostsInfo.user_id,PostsInfo.id,1)" >举报</a></span>
                         </div>
 
+                        <div>
+                            <a class="btn" style="color: #1e80ff;" href="javascript:;" @click="citePostReply()">
+                                <i class="layui-icon layui-icon-reply-fill"></i> 回复
+                            </a>
+                            <a class="btn" style="color: #86909c;" href="javascript:;" @click="reportPosts(PostsInfo.user_id,PostsInfo.id,1)">
+                                举报
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
-            <!--帖子内容-->
-            <div class="row" style="position: relative;margin-top: 8px;" v-for="(item,index) in PostsInfo.listPosts">
-                <!--左边发帖人-->
-                <div class="col-md-2" style=" position: absolute; height: 100%; background-color: #fafafa;">
+
+            <div class="row post-card-item reply-item" v-for="(item,index) in PostsInfo.listPosts" :key="index">
+                <div class="col-md-2 user-side-panel">
                     <div class="discard-posit">
-                        <div class="dropdown1" @mouseenter="queryUserStatus(item.pd_uid)">
-                            <a :href="'/leek_bbs/skipPage/personal?id='+item.pd_uid"><img :src="'/leek_bbs/'+item.pd_picture" class="img-circle" width="100" height="100" ></a>
-                            <!--悬浮框,用于显示用户在线状态-->
-                            <div class="dropdown-content">
-                                <a :href="'/leek_bbs/skipPage/personal?id='+item.pd_uid" target="_blank"><img :src="'/leek_bbs/'+item.pd_picture" class="img-circle" width="100" height="100" ></a>
-                                <ul class="list-inline" style="padding-left:25px;padding-top:10px;">
-                                    <li><span>用户状态:</span>&emsp;
-                                        <span v-if="online_status" style="color: red;">在线</span>
-                                        <span v-else style="color: black;">【离线】</span>
-                                    </li>
-                                </ul>
-                            </div>
+                        <div class="user-avatar-box" @mouseenter="queryUserStatus(item.pd_uid)">
+                            <a :href="'/leek_bbs/skipPage/personal?id='+item.pd_uid">
+                                <img :src="'/leek_bbs/'+item.pd_picture" class="img-circle" width="80" height="80">
+                            </a>
                         </div>
-                        <div style="padding-left:48px; margin-top: 10px ">
-                            <a href="javascript:;" style="color: red">{{item.pd_nickname}}</a>
+
+                        <a href="javascript:;" class="user-name-link">{{item.pd_nickname}}</a>
+
+                        <div class="user-stats-grid">
+                            <div class="stat-item"><span>{{item.themeCount}}</span><br><span>主题</span></div>
+                            <div class="stat-item"><span>{{item.postsCount}}</span><br><span>帖子</span></div>
                         </div>
-                        <div class="row p-left-nature">
-                            <div class="col-sm-4" ><span>{{item.themeCount}}</span><br><span>主题</span></div>
-                            <div class="col-sm-4" ><span>{{item.postsCount}}</span><br><span>帖子</span></div>
-                            <div class="col-sm-4" style="border: none;"><span>{{item.pd_total_integral}}</span><br><span>积分</span></div>
+
+                        <div class="user-badges">
+                            <span class="label label-default">{{item.grade.name}}</span>
+                            <div><img :src="'/leek_bbs/statics/images'+item.grade.img" style="max-width: 100%;"></div>
                         </div>
-                        <div class="row p-left-nature" style="background-color: transparent;">
-                            <h5>用户组: &nbsp;{{item.grade.name}}</h5>
-                            <h5><span>等级: &nbsp;</span><img style="vertical-align:text-top;" :src="'/leek_bbs/statics/images'+item.grade.img" alt="等级" title="等级"></h5>
+
+                        <div class="user-actions" v-show="isOneself(item.pd_uid)">
+                            <button class="btn btn-default btn-xs btn-block" @click="addUserAttention(item.pd_uid,item.pd_picture)">关注</button>
+                            <button class="btn btn-primary btn-xs btn-block" @click="openWindow2(item)">私信</button>
                         </div>
-                        <div class="row" style="margin: 0px auto;padding-bottom: 30px;" v-show="isOneself(item.pd_uid)">
-                        <a class="btn btn-default btn-sm" @click="addUserAttention(item.pd_uid,item.pd_picture)" style="width:76px;color: #fff;background-color: #CA0C16;">关注</a>
-                        <a class="btn btn-default btn-sm" @click="openWindow2(item)" style="width:76px;color: #fff;background-color: #3399EA;">发送消息</a>
-                    </div>
                     </div>
                 </div>
-                <!--右边内容-->
-                <div class="col-md-10" >
-                    <div class="row" style="margin:10px;border-bottom: 1px solid #e5e5e5;">
-                        <span style="line-height: 38px;">发表于 {{item.reply_time|format}}&nbsp;&nbsp;|&nbsp;
-                            <a v-show="readPattern" href="javascript:;" @click="handleCurrentChange(item.pd_uid,1)" style="opacity: .7;">只看该作者</a>
-                            <a v-show="!readPattern" href="javascript:;" @click="handleCurrentChange()" style="opacity: .7;">显示全部楼层</a>
+
+                <div class="col-md-10 content-side-panel">
+                    <div class="post-header-meta">
+                        <span>
+                            发表于 {{item.reply_time|format}}
                         </span>
-                        <span style="float: right;margin-right: 10px;margin-bottom: 10px;">
-                            <a v-if="item.seat==1" class="btn btn-default btn-sm" style="color:#fff;background-color: #ff4c4c;">{{item.seat|seatFormat}}</a>
-                            <a v-else-if="item.seat==2" class="btn btn-default btn-sm" style="color:#fff;background-color: #f80;">{{item.seat|seatFormat}}</a>
-                            <a v-else-if="item.seat==3" class="btn btn-default btn-sm" style="color:#fff;background-color: #6999ee;">{{item.seat|seatFormat}}</a>
-                            <a v-else class="btn btn-default btn-sm" style="color:#333;background-color: #f3f3f3">{{item.seat|seatFormat}}</a>
+
+                        <span>
+                            <span v-if="item.seat==1" class="label label-danger floor-badge">沙发</span>
+                            <span v-else-if="item.seat==2" class="label label-warning floor-badge">板凳</span>
+                            <span v-else class="label label-default floor-badge">{{item.seat}} 楼</span>
                         </span>
                     </div>
-                    <div style="margin: 18px 10px;" id="post-text">
+
+                    <div class="post-content-body" id="post-text">
                         <div v-html="item.pd_content"></div>
                     </div>
-                    <!--底部对帖子操作部分-->
-                    <div class="p-pt">
-                        <div class="row" style="margin: 10px;">
-                            <span><a href="javascript:;" @click="citePostReply(item)"><img src="/leek_bbs/statics/images/folder_new.gif" style="vertical-align: sub;">&nbsp;回复</a></span>
-                            <span style="float: right;"><a href="javascript:;" @click="reportPosts(item.pd_uid,item.pid,2)" >举报</a></span>
-                        </div>
 
+                    <div class="post-footer-actions">
+                        <div></div> <div class="action-btn-group">
+                        <a class="btn" style="color: #1e80ff;" href="javascript:;" @click="citePostReply(item)">
+                            <i class="layui-icon layui-icon-reply-fill"></i> 回复
+                        </a>
+                        <a class="btn" style="color: #999;" href="javascript:;" @click="reportPosts(item.pd_uid,item.pid,2)">
+                            举报
+                        </a>
+                    </div>
                     </div>
                 </div>
             </div>
-            <!--底部分页栏-->
-            <div class="row" >
-                <div class="row" style="float:right;margin: 18px 0 5px;">
-                    <div>
-                        <el-pagination
-                                background
-                                @current-change="handleCurrentChange"
-                                :current-page.sync="currentPage"
-                                :page-size="pageSize"
-                                layout="prev, pager, next, jumper"
-                                prev-text="上一页"
-                                next-text="下一页"
-                                :total="total">
-                        </el-pagination>
+
+            <div class="row" style="margin-top: 20px; text-align: right;">
+                <el-pagination
+                        background
+                        @current-change="handleCurrentChange"
+                        :current-page.sync="currentPage"
+                        :page-size="pageSize"
+                        layout="prev, pager, next, jumper"
+                        :total="total">
+                </el-pagination>
+            </div>
+
+            <div class="reply-editor-section">
+                <div class="editor-user-side">
+                    <img id="changSrc" :src="editorAvatar" class="img-circle" width="64" height="64" style="border: 1px solid #ddd;">                    <div style="margin-top: 10px; font-weight: bold;">发表回复</div>
+                </div>
+
+                <div class="editor-main-side">
+                    <div v-if="!isLogin" class="alert alert-warning text-center">
+                        你需要 <a href="javascript:;" onclick="layui.login()">登录</a> 后才能回帖 | <a href="javascript:;" onclick="layui.register()">立即注册</a>
                     </div>
-                </div>
-            </div>
-            <!--底部回复栏-->
-            <div class="row" style="margin-top: 10px;">
-            <div class="col-md-3" style="background: #FAFBFC; width: 150px; height: 256px">
-                <h4 align="center" style="margin-top: 35px;">发表回复</h4>
-                <div style="margin-top: 15px">
-                    <a href="javascript:;" id="changSrc"><img src="/leek_bbs/statics/images/head_portrait/comiis_nologin.jpg" class="img-circle" width="132" height="132" ></a>
-                </div>
-            </div>
-            <div class="col-md-9" style="width: 1018px;background-color: #fff;">
-                <div style="padding-top: 20px; padding-left: 15px;">
-                    <div v-if="!isLogin" style="background:  #FAFBFC; height: 35px; width: 960px">
-                        <ul class="list-inline" style="padding-top: 8px; padding-left:15px">
-                            <li><span class="glyphicon glyphicon glyphicon glyphicon-bold" aria-hidden="true"></span></li>
-                            <li><span class="glyphicon glyphicon glyphicon glyphicon-italic" aria-hidden="true"></span></li>
-                            <li><span class="glyphicon glyphicon glyphicon-align-left" aria-hidden="true"></span></li>
-                            <li><span class="glyphicon glyphicon glyphicon-align-center" aria-hidden="true"></span></li>
-                            <li><span class="glyphicon glyphicon glyphicon-align-right" aria-hidden="true"></span></li>
-                            <li><span class="glyphicon glyphicon glyphicon-picture" aria-hidden="true"></span></li>
-                        </ul>
-                        <div style="padding-top: 70px; margin-left: 300px; height: 140px" >
-                            <label>你需要登陆后才能回帖</label><a href="javascript:;" onclick="layui.login()">&nbsp;登录&nbsp;</a>|<a href="javascript:;" onclick="layui.register()">&nbsp;立即注册&nbsp;</a>
+                    <div v-else>
+                        <div id="themeEditor" style="background: #fff;"></div>
+                        <div style="margin-top: 15px; display: flex; align-items: center; justify-content: space-between;">
+                            <div>
+                                <el-checkbox v-model="checkbox">回帖后跳到最后一页</el-checkbox>
+                            </div>
+                            <button class="btn btn-primary modern-btn-primary" @click="replyPost()">
+                                <i class="layui-icon layui-icon-release"></i> 发表回复
+                            </button>
                         </div>
                     </div>
-                    <div v-else style="background:  #FAFBFC; height: 35px; width: 960px">
-                        <!--<div style="position: relative;left: 882px;top: -8px;"><a href="javascript:;">全屏模式</a></div>-->
-                        <div id="themeEditor"></div>
-                    </div>
-                </div>
-                <div style="padding-top: 165px;padding-bottom: 5px; padding-left: 15px">
-                    <button class="btn btn-sm" style="color: #fff;background-color: rgb(188, 23, 32);" @click="replyPost()">发表回复</button>
-                    &emsp;
-                    <input type="checkbox" style="margin-left: 20px;margin-top: 0;" v-model="checkbox"><span>回帖后跳到最后一页</span>
-                    <!--<a href="#" style="float: right;">本版积分规则</a>-->
                 </div>
             </div>
+
         </div>
-        </div>
-        <div id="exist" v-else style="display:none;margin: 110px auto;width: 680px;height: 84px;background-color: #fff;">
-            <div class="row" style="margin: 10px auto">
-                <div class="col-sm-1" style="margin-top: 25px;margin-left: 20px;"><img src="/leek_bbs/statics/images/error.gif" alt="" ></div>
-                <div class="col-sm-9" style="margin-top: 12px;margin-left: -8px;opacity: .9;">
-                    <h4>抱歉，指定的主题不存在或已被删除或正在被审核</h4>
-                    <a href="javascript:;" style="margin-left: 10px;" @click="back">[ 点击这里返回上一页 ]</a>
-                </div>
-            </div>
+
+        <div id="exist" v-else style="display:none; text-align: center; padding: 100px 0;">
+            <img src="/leek_bbs/statics/images/error.gif" alt="error">
+            <h3 style="color: #666; margin-top: 20px;">指定的主题不存在或已被删除</h3>
+            <a class="btn btn-default" style="margin-top: 10px;" @click="back">返回上一页</a>
         </div>
     </div>
 
 
-    <!-- 页脚部分 -->
     <footer>
         <div class="row">
-            <p style="text-align: center; color: #666; font-size: 14px; margin: 20px 0; line-height: 1.8;">
+            <p style="text-align: center; color: #86909c; font-size: 14px; margin: 40px 0; line-height: 1.8;">
                 <span>© 2026 就业交流论坛 版权所有</span>
                 <br>
                 <span>邮箱：hanser12581@gmail.com | 友链：www.bronia.xyz</span>
             </p>
         </div>
     </footer>
-
 </div>
 
-<!--回顶部盒子-->
 <div id="box" class="box">
     <div class="box-in"></div>
 </div>
+
 <script src="/leek_bbs/statics/component/common_import.js"></script>
 <!-- vue-element插件 -->
 <script src="/leek_bbs/statics/vue/element-ui/index.js"></script>
@@ -491,7 +276,7 @@
 <script src="/leek_bbs/statics/component/wangEditCommon.js"></script>
 </body>
 <script>
-    // 添加获取URL参数的函数
+    // 仅仅添加一个帮助函数，用于在Vue加载后修正部分老旧的DOM表现
     function getUrlParam(name) {
         var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
         var r = window.location.search.substr(1).match(reg);
@@ -528,7 +313,9 @@
             checkbox:false,
             pageSize:10,
             currentPage:1,  //当前页
-            total:0
+            total:0,
+            editorAvatar: '/leek_bbs/statics/images/head_portrait/comiis_nologin.jpg', // 编辑器头像
+
         },
         methods:{
             back(){
@@ -697,7 +484,7 @@
             },
             getPlateInfo(plate_id){
                 axios.get(`/leek_bbs/bbs/plate/getPlate?plate_id=${plate_id}`).then(response => {
-                   this.plateObject = response.data;
+                    this.plateObject = response.data;
                 })
             },
             replyPost(content){
@@ -852,8 +639,8 @@
 
     layui.define(['layer','layedit','util'],function (exports) {
         const layer = layui.layer,
-              layedit = layui.layedit,
-              util = layui.util;
+            layedit = layui.layedit,
+            util = layui.util;
 
         let editIndex = null;
         let index = null;
@@ -863,9 +650,11 @@
             if (userInfo != null){
                 postApp.isLogin = true;
                 setTimeout(function () {
-                    $("#changSrc > img").attr("src","/leek_bbs/"+userInfo.picture);
+                    if (userInfo != null) {
+                        postApp.editorAvatar = '/leek_bbs/' + userInfo.picture;
+                    }
                     createEdit("themeEditor");
-                },2500);
+                },300);
             }
         },200);
 
@@ -904,7 +693,7 @@
                 resize: false,  //关闭拉伸
                 area: ['600px', '490px'],
                 success: function(layero, index){
-                   //$("#layer-r").find(".text-hidden .citeReply").css("display","none");
+                    //$("#layer-r").find(".text-hidden .citeReply").css("display","none");
                     $("#layer-r").find(".text-hidden .citeReply").remove(); //删除上上个引用
                     createEdit2("citeReplyEditor");
                 },
@@ -970,14 +759,14 @@
         exports('openMessage',function(item) {
             if (index == null){
                 index = layer.open({
-                type: 1,
-                //id: 'openMessage', //id唯一标识
-                title:'<div class="layui-row" >' +
-                    '<div class="layui-col-sm2" style="margin-top: 8px;"><img src="/leek_bbs/'+item.img+'" class="img-circle img-size" alt=""></div>' +
-                    '<div class="layui-col-sm2 m-class" style="height: 70px;margin-left: -10px;"><h4 style="line-height:25px;margin-top: 12px;color:#333;">'+item.username+'</h4>' +
-                    '</div>' +
-                    '</div>',
-                content: `<div id="layer-3" class="layui-container-fluid" >
+                    type: 1,
+                    //id: 'openMessage', //id唯一标识
+                    title:'<div class="layui-row" >' +
+                        '<div class="layui-col-sm2" style="margin-top: 8px;"><img src="/leek_bbs/'+item.img+'" class="img-circle img-size" alt=""></div>' +
+                        '<div class="layui-col-sm2 m-class" style="height: 70px;margin-left: -10px;"><h4 style="line-height:25px;margin-top: 12px;color:#333;">'+item.username+'</h4>' +
+                        '</div>' +
+                        '</div>',
+                    content: `<div id="layer-3" class="layui-container-fluid" >
                     <iframe src="/leek_bbs/skipPage/session" frameborder="0" id="chatSession-W" name="chatSession-W" style="width: 100%; height: 254px;"></iframe>
                     <div class="layui-row" id="layedit">
                         <textarea id="chatEdit" style="display: none;"></textarea>
@@ -991,72 +780,72 @@
                         </div>
                     </div>
                 </div>`,
-                /*skin: 'm-bg-color',*/
-                anim: 2,    //动画
-                shade: 0,
-                /*fixed: false,*/
-                maxmin: true,   //最大化
-                resize: false,  //关闭拉伸
-               // scrollbar: false,   //不允许出现滚动条
-                area: ['600px', '522px'],
-                moveEnd: function(layero){
-                    /*console.log(layero);*/
+                    /*skin: 'm-bg-color',*/
+                    anim: 2,    //动画
+                    shade: 0,
+                    /*fixed: false,*/
+                    maxmin: true,   //最大化
+                    resize: false,  //关闭拉伸
+                    // scrollbar: false,   //不允许出现滚动条
+                    area: ['600px', '522px'],
+                    moveEnd: function(layero){
+                        /*console.log(layero);*/
 
-                },
-                success: function(layero, index) {
-                    $("#layui-layer"+index).find(".layui-layer-title").addClass("m-layer-title");
-                    let str;
-                    //获取用户在线状态
-                    postApp.queryUserStatus(item.id);
-                    setTimeout(() => {
-                        console.log(postApp.online_status);
-                        if (postApp.online_status == true){
-                            str = `<h5 style="color:red;">在线</h5>`;
-                        } else {
-                            str = `<h5 style="color:black;">【离线】</h5>`;
-                        }
-                        $("#layui-layer"+index).find(".m-class").append(str);
-                    },60);
-                    //显示编辑器
-                    $("#layer-3").css("display","block");
-                    //建立编辑器
-                    editIndex = layedit.build('chatEdit',{
-                        width:560,  //设置宽度
-                        height: 82, //设置编辑器高度
-                        tool: [
-                            'face' //表情
-                            //,'image' //插入图片
-                        ]
-                    });
-                    //获取聊天对象信息
-                    tarUser = item;
-                    id = item.id;
-                },
-                full: function(layero){ //最大化
-                    //调整按钮位置
-                    $("#layer-3 .layui-row .m-btn").css({"margin-left":"205px","margin-top":"155px"});
-                    //调整用户名称及状态位置
-                    layero.find(".layui-layer-title .m-class").css("margin-left","-90px");
-                },
-                min: function(layero){
-                    layero.find(".layui-layer-title .m-class").css("display","none");
-                },
-                restore: function(layero){    //还原
-                    //还原按钮初始位置
-                    $("#layer-3 .layui-row .m-btn").css({"margin-left":"30px","margin-top":"5px"});
-                    //还原用户名称及状态位置
-                    layero.find(".layui-layer-title .m-class").css("margin-left","-10px");
-                    layero.find(".layui-layer-title .m-class").css("display","block");
-                },
-                end: function () {
-                    //在未还原时,直接关闭弹窗,则还原按钮初始位置
-                    $("#layer-3 .layui-row .m-btn").css("margin-left","30px");
-                    //隐藏编辑器
-                    $("#layer-3").css("display","none");
-                    index = null;
-                }
+                    },
+                    success: function(layero, index) {
+                        $("#layui-layer"+index).find(".layui-layer-title").addClass("m-layer-title");
+                        let str;
+                        //获取用户在线状态
+                        postApp.queryUserStatus(item.id);
+                        setTimeout(() => {
+                            console.log(postApp.online_status);
+                            if (postApp.online_status == true){
+                                str = `<h5 style="color:red;">在线</h5>`;
+                            } else {
+                                str = `<h5 style="color:black;">【离线】</h5>`;
+                            }
+                            $("#layui-layer"+index).find(".m-class").append(str);
+                        },60);
+                        //显示编辑器
+                        $("#layer-3").css("display","block");
+                        //建立编辑器
+                        editIndex = layedit.build('chatEdit',{
+                            width:560,  //设置宽度
+                            height: 82, //设置编辑器高度
+                            tool: [
+                                'face' //表情
+                                //,'image' //插入图片
+                            ]
+                        });
+                        //获取聊天对象信息
+                        tarUser = item;
+                        id = item.id;
+                    },
+                    full: function(layero){ //最大化
+                        //调整按钮位置
+                        $("#layer-3 .layui-row .m-btn").css({"margin-left":"205px","margin-top":"155px"});
+                        //调整用户名称及状态位置
+                        layero.find(".layui-layer-title .m-class").css("margin-left","-90px");
+                    },
+                    min: function(layero){
+                        layero.find(".layui-layer-title .m-class").css("display","none");
+                    },
+                    restore: function(layero){    //还原
+                        //还原按钮初始位置
+                        $("#layer-3 .layui-row .m-btn").css({"margin-left":"30px","margin-top":"5px"});
+                        //还原用户名称及状态位置
+                        layero.find(".layui-layer-title .m-class").css("margin-left","-10px");
+                        layero.find(".layui-layer-title .m-class").css("display","block");
+                    },
+                    end: function () {
+                        //在未还原时,直接关闭弹窗,则还原按钮初始位置
+                        $("#layer-3 .layui-row .m-btn").css("margin-left","30px");
+                        //隐藏编辑器
+                        $("#layer-3").css("display","none");
+                        index = null;
+                    }
 
-            });
+                });
             }
         });
 
@@ -1066,19 +855,19 @@
                 //获取发送内容
                 let str = layedit.getContent(editIndex);
                 if (str != null && str != ''){
-                let date = new Date();
-                ws.send(JSON.stringify({
-                    "type": "1",
-                    "tarUser": {"userId":tarUser.id},
-                    "srcUser": {"userId":userInfo.id},
-                    "img":userInfo.picture,
-                    "time":date.getTime(),
-                    "content": str
-                    //"isOneself":true
-                }));
-                //该方法layedit接口中未定义,修改layedit.js文件自己添加的方法
-                layedit.clearContent(editIndex);
-            }
+                    let date = new Date();
+                    ws.send(JSON.stringify({
+                        "type": "1",
+                        "tarUser": {"userId":tarUser.id},
+                        "srcUser": {"userId":userInfo.id},
+                        "img":userInfo.picture,
+                        "time":date.getTime(),
+                        "content": str
+                        //"isOneself":true
+                    }));
+                    //该方法layedit接口中未定义,修改layedit.js文件自己添加的方法
+                    layedit.clearContent(editIndex);
+                }
             }else {      //不在线
                 layer.msg('该用户不在线,请上线后再私聊!',{icon:5,time:1500})
             }

@@ -1,0 +1,341 @@
+/* * filename: modern-ui-post.css
+ * description: 帖子详情页专用样式
+ */
+
+/* === 基础容器与重置 === */
+#modern-index-shell[data-page="post-detail"] {
+    background-color: #f4f5f7; /* 现代社区常用的浅灰背景 */
+    min-height: 100vh;
+    padding-bottom: 60px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+#modern-index-shell[data-page="post-detail"] .container {
+    width: 100%;
+    max-width: 1140px; /* 限制最大宽度，增强阅读体验 */
+    margin: 0 auto;
+    padding-top: 20px;
+}
+
+/* === 面包屑导航 === */
+.modern-breadcrumb {
+    padding: 16px 0;
+    font-size: 14px;
+    color: #86909c;
+    display: flex;
+    align-items: center;
+}
+
+.modern-breadcrumb a {
+    color: #4e5969;
+    text-decoration: none;
+    margin: 0 8px;
+    transition: color 0.2s;
+}
+
+.modern-breadcrumb a:hover {
+    color: #1e80ff; /* 品牌色 */
+}
+
+.modern-breadcrumb .separator {
+    color: #c9cdd4;
+    font-size: 12px;
+}
+
+.modern-breadcrumb .current-node {
+    font-weight: 500;
+    color: #1d2129;
+}
+
+/* === 通用帖子卡片 (包含主贴和回帖) === */
+.post-card-item {
+    background: #fff;
+    border-radius: 8px; /* 大圆角 */
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    margin-bottom: 16px; /* 卡片间距 */
+    transition: all 0.3s;
+    overflow: hidden; /* 确保圆角有效 */
+    border: none !important; /* 强制覆盖旧边框 */
+}
+
+.post-card-item:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* === 左侧用户信息栏 === */
+/* 保持 col-md-2 的宽度，但美化内部 */
+.user-side-panel {
+    background-color: #f7f8fa !important; /* 极淡的灰色区分 */
+    border-right: 1px solid #f0f1f2;
+    padding: 24px 10px;
+    text-align: center;
+    height: 100%;
+    min-height: 300px; /* 最小高度 */
+}
+
+.user-avatar-box {
+    position: relative;
+    margin-bottom: 12px;
+}
+
+.user-avatar-box img {
+    border: 2px solid #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+}
+
+.user-avatar-box img:hover {
+    transform: scale(1.05);
+}
+
+.user-name-link {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    display: block;
+    margin-bottom: 8px;
+    text-decoration: none !important;
+}
+
+.user-stats-grid {
+    display: flex;
+    justify-content: space-around;
+    margin: 15px 0;
+    padding: 10px 0;
+    border-top: 1px solid #e5e6eb;
+    border-bottom: 1px solid #e5e6eb;
+}
+
+.stat-item span:first-child {
+    font-weight: bold;
+    color: #1d2129;
+}
+.stat-item span:last-child {
+    font-size: 12px;
+    color: #86909c;
+}
+
+.user-badges {
+    margin-top: 15px;
+}
+
+.user-actions {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+}
+
+/* === 右侧内容区域 === */
+.content-side-panel {
+    background-color: #fff;
+    padding: 0 !important; /* 清除原有padding，交由内部元素控制 */
+}
+
+/* 帖子标题栏 */
+.post-header-meta {
+    padding: 16px 24px;
+    border-bottom: 1px solid #f0f1f2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #86909c;
+    font-size: 13px;
+}
+
+.post-title-h4 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1d2129;
+    margin: 0;
+    padding: 20px 24px 10px;
+    line-height: 1.4;
+}
+
+/* 帖子正文 */
+.post-content-body {
+    padding: 24px;
+    font-size: 16px;
+    line-height: 1.8;
+    color: #1d2129;
+    min-height: 200px;
+}
+
+.post-content-body img {
+    max-width: 100%;
+    max-height: 480px;
+    height: auto;
+    display: block;
+    margin: 12px auto;
+    border-radius: 6px;
+}
+
+
+/* 底部操作栏 */
+.post-footer-actions {
+    padding: 12px 24px;
+    background-color: #fff;
+    border-top: 1px solid #f0f1f2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.action-btn-group .btn {
+    background: transparent;
+    border: 1px solid #e5e6eb;
+    color: #4e5969;
+    border-radius: 4px;
+    margin-right: 8px;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.action-btn-group .btn:hover {
+    background-color: #f2f3f5;
+    color: #1e80ff;
+    border-color: #1e80ff;
+}
+
+/* === 引用样式美化 === */
+.citeReply {
+    background-color: #f7f8fa;
+    border-left: 4px solid #c9cdd4;
+    padding: 12px 16px;
+    border-radius: 0 4px 4px 0;
+    margin: 16px 0;
+    color: #4e5969;
+}
+
+/* === 底部编辑器区域 === */
+.reply-editor-section {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    margin-top: 20px;
+    padding: 24px;
+    display: flex;
+    gap: 20px;
+}
+
+.editor-user-side {
+    width: 120px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.editor-main-side {
+    flex-grow: 1;
+}
+
+.modern-btn-primary {
+    background-color: #1e80ff !important;
+    border-color: #1e80ff !important;
+    color: #fff !important;
+    padding: 8px 24px;
+    font-weight: 500;
+}
+
+.modern-btn-primary:hover {
+    background-color: #1171ee !important;
+}
+
+/* === ElementUI 分页器微调 === */
+.el-pagination.is-background .el-pager li:not(.disabled).active {
+    background-color: #1e80ff !important;
+}
+
+/* === 楼层徽章 === */
+.floor-badge {
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: normal;
+}
+
+/* === 适配旧代码的补丁 === */
+.discard-posit {
+    position: sticky;
+    top: 20px; /* 修正 sticky 距离 */
+}
+
+/* 去除旧的 dropdown 悬浮大图干扰，使用现代简单的 hover */
+.dropdown1:hover .dropdown-content {
+    display: none !important; /* 暂时禁用旧版悬浮，因为它会遮挡现代布局，或者需要重新定位 */
+}
+.modern-top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 20px;
+    background: #fff;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 2px rgba(0,0,0,.05);
+}
+
+.top-title-area {
+    flex: 1;
+    overflow: hidden;
+}
+
+.top-post-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.top-action-area {
+    display: flex;
+    gap: 12px;
+}
+
+.action-icon-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    border: 1px solid #e5e6eb;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #4e5969;
+    transition: all .2s;
+}
+
+.action-icon-btn i {
+    font-size: 18px;
+}
+
+.action-icon-btn:hover {
+    background: #f2f3f5;
+    color: #1e80ff;
+    border-color: #1e80ff;
+}
+.reply-item {
+    border-radius: 0;
+    box-shadow: none;
+    border-bottom: 1px solid #f0f1f2;
+    margin-bottom: 0;
+}
+
+.reply-item:hover {
+    box-shadow: none;
+    background: #fafafa;
+}
+.reply-item .post-header-meta {
+    font-size: 12px;
+    color: #86909c;
+    background: transparent;
+    padding: 12px 24px;
+}
+
+.reply-item .post-footer-actions {
+    border-top: none;
+    padding: 8px 24px;
+}
